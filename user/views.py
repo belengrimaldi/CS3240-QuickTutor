@@ -12,7 +12,7 @@ from .forms import UserForm,ProfileForm
 
 @login_required
 def Home(request):
-    return render(request, 'user/home.html')
+    return render(request, 'home.html')
 @login_required
 @transaction.atomic
 def update_profile(request):

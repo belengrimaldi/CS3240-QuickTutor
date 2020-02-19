@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user', 
     'social_django',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -162,6 +163,8 @@ SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = [
 ]
 LOGIN_URL = '/account/login/'
 #LOGOUT_URL = '/account/logout'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='354861153936-10lli7qhi9h8o60vlhu6rsp8rdqa8cpl.apps.googleusercontent.com'  #Paste CLient Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '-niiEgaceqgsoQtoyIF_t2WD' #Paste Secret Key

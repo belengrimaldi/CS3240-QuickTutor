@@ -23,6 +23,9 @@
     <div class="collapse navbar-collapse flex-row-reverse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-item nav-link" style="color:white" href="/">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" style="color:white" href="/profile/tutor">Tutor Profile</a>
+        <a class="nav-item nav-link" style="color:white" href="/profile/tutee">Tutee Profile</a>
+        <a class="nav-item nav-link" style="color:white" href="/profile/update">Update Profile</a>
         <a class="nav-item nav-link" style="color:white" href="/about">About</a>
         <a class="nav-item nav-link" style="color:white" href="/account/logout">Log out</a></li>
       </div>
@@ -38,6 +41,15 @@
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="/account/logout">Log out</a></li>
             </ul>
+            <ul id="2nd-nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/profile/update">Update Profile</a></li>
+            </ul>
+            <ul id="3rd-nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/profile/tutor">Tutor Profile</a></li>
+            </ul>
+            <ul id="4th-nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/profile/tutee">Tutee Profile</a></li>
+            </ul>
         </div>
     </nav>
 </div> -->
@@ -46,6 +58,8 @@
     {% block content %}
     {% endblock %}
 </div>
+
+</html>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

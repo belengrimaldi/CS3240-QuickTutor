@@ -10,6 +10,7 @@ gmane==0.1.dev25
 GroupyAPI==0.10.3
 gunicorn==20.0.4
 idna==2.7
+lxml==4.5.0
 networkx==2.4
 Pillow==6.0.0
 psycopg2==2.8.4

@@ -58,7 +58,6 @@ pylint-django==2.0.13
 pylint-plugin-utils==0.6
 pyOpenSSL==17.5.0
 pyserial==3.4
-python-apt==1.6.4
 python-dateutil==2.8.0
 python-debian==0.1.32
 python-json-logger==0.1.11
@@ -82,11 +81,8 @@ soupsieve==1.9.5
 splinter==0.13.0
 sqlparse==0.3.0
 ssh-import-id==5.7
-systemd-python==234
 Twisted==17.9.0
 typed-ast==1.4.1
-ufw==0.36
-unattended-upgrades==0.1
 urllib3==1.25.8
 virtualenv==16.7.9
 wheel==0.30.0

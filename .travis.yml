@@ -1,0 +1,14 @@
+language: python
+python:
+- '3.6'
+install:
+- pip install -r requirements-travis.txt
+script:
+- python manage.py test
+deploy:
+  provider: heroku
+  api_key:
+    secure: FYbMjYHjiY3ONRsT1sYsiA
+  app: quick-tutor-tf
+  on:
+    repo: uva-cs3240-s20/project-101-team-falcon

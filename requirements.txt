@@ -38,7 +38,6 @@ jsonpointer==1.10
 jsonschema==2.6.0
 keyring==10.6.0
 keyrings.alt==3.0
-language-selector==0.1
 lazy-object-proxy==1.4.3
 lxml==4.5.0
 MarkupSafe==1.0

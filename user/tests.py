@@ -16,32 +16,30 @@ class UserTestCase(TestCase):
                             image = "default.jpg"
         )
 
-    def bioTest(self):
+    def test_bio(self):
         testU = Profile.user.get(bio="Hello, tutor me")
         self.assertEqual(testU.bio, "Hello, tutor me")
 
-    def locationTest(self):
+    def test_location(self):
         testU = Profile.user.get(location="America")
         self.assertEqual(testU.location, "America")
 
-    def birth_dateTest(self):
+    def test_bday(self):
         testU = Profile.user.get(birth_date="04/09/1999")
         self.assertEqual(testU.birth_date, "04/09/1999")
 
-    def yearTest(self):
+    def test_year(self):
         testU = Profile.user.get(year=2021)
         self.assertEqual(testU.year, 2021)
 
-    def classes_TakenTest(self):
+    def test_classes_taken(self):
         testU = Profile.user.get(classes_taken="Art")
         self.assertEqual(testU.classes_taken, "Art")
 
-    def help_neededTest(self):
+    def test_help_needed(self):
         testU = Profile.user.get(help_needed="CS 3240")
         self.assertEqual(testU.help_needed,"CS 3240")
 
-    def help_neededTest(self):
+    def test_image(self):
         testU = Profile.user.get(image="default.jpg")
         self.assertEqual(testU.image,"default.jpg")
-    
-    

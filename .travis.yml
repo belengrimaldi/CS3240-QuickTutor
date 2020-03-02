@@ -8,7 +8,7 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: FYbMjYHjiY3ONRsT1sYsiA
+    secure: be034e2a-2581-45c1-b51c-ac8371f209d4
   app: quick-tutor-tf
   on:
     repo: uva-cs3240-s20/project-101-team-falcon

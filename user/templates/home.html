@@ -1,8 +1,26 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-<div class="row">
- <div class="col s12 m6 offset-m3">
-  <H3>Welcome {{ user.first_name }}!</H3>
- </div>
-</div>
-{% endblock %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'user\home.css' %}">
+</head>
+
+<body>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+        {% if available_tutors %}
+        <h2 class="welcome">Welcome back, {{ user.first_name }}! </h2>
+        <h2> Here are a list of available tutors:</h2> 
+        <ul>
+        {% for tutor in available_tutors %}
+            <div>{{ tutor.user }}</div>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <h2>Welcome {{ user.first_name }}! </h2>
+        <p>Unfortunately, no tutors are available right now.</p>
+    {% endif %}
+    </div>
+    </div>
+    {% endblock %}
+</body>

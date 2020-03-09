@@ -3,7 +3,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.template import loader
 from django.db import transaction
 from .models import Profile
 from .forms import UserForm,ProfileUpdateForm
@@ -13,18 +14,25 @@ from django.contrib import messages
 
 @login_required
 def Home(request):
-    return render(request, 'home.html')
+    available_tutors = Profile.objects.filter(activeTutor=True)
+    template = loader.get_template('home.html')
+    context = {
+        'available_tutors': available_tutors,
+    }
+    return HttpResponse(template.render(context, request))
+
+    # return render(request, 'home.html')
 
 @login_required
-def Tutor(request):
-    return render(request, 'tutor.html')
+def SeeProfile(request):
+    return render(request, 'profile.html')
+
+# @login_required
+# def Tutee(request):
+#     return render(request, 'tutee.html')
 
 @login_required
-def Tutee(request):
-    return render(request, 'tutee.html')
-
-@login_required
-def Profile(request):
+def Prof(request):
     if request.method == 'POST':
         u_form = UserForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,

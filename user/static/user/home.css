@@ -1,0 +1,27 @@
+.row {
+    text-align: center;
+}
+
+.welcome {
+    margin: 2rem auto;
+}
+
+/* .listView {
+    background-color: #3D6C7F;
+    border-radius: 1rem;
+} */
+
+.listItem {
+    background-color: #3D6C7F;
+    color: white;
+    margin-bottom: 1rem;
+    width: 50%;
+}
+
+.list-group-item:last-child {
+    margin-bottom: 1rem;
+}
+
+.list-group-item:hover {
+    color: white;
+}

@@ -9,7 +9,6 @@ class UserTestCase(TestCase):
         Profile.user.create(user = User,
                             bio = "Hello, tutor me",
                             location = "America",
-                            birth_date = "04/09/1999",
                             year = 2021,
                             classes_taken = "Art",
                             help_needed = "CS 3240",
@@ -23,10 +22,6 @@ class UserTestCase(TestCase):
     def test_location(self):
         testU = Profile.user.get(location="America")
         self.assertEqual(testU.location, "America")
-
-    def test_bday(self):
-        testU = Profile.user.get(birth_date="04/09/1999")
-        self.assertEqual(testU.birth_date, "04/09/1999")
 
     def test_year(self):
         testU = Profile.user.get(year=2021)

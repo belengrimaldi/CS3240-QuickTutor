@@ -7,7 +7,6 @@ class UserTestCase(TestCase):
     def setUp(self):
         User.objects.create(email='example@example.com', first_name = 'Emma', last_name = 'Studtmann')
 
-
     def test_UserExists_Test(self):
         self.assertNotEquals(User.objects.get(email='example@example.com'), None)
     

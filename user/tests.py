@@ -7,7 +7,7 @@ class UserTestCase(TestCase):
     def setUp(self):
         User.objects.create(email='example@example.com', first_name = 'Emma', last_name = 'Studtmann')
 
-<<<<<<< HEAD
+
     def test_UserExists_Test(self):
         self.assertNotEquals(User.objects.get(email='example@example.com'), None)
     
@@ -18,7 +18,6 @@ class UserTestCase(TestCase):
         #profile = Profile.objects.filter(bio='Tutor me').filter(location = 'Roanoke') This will return a list of all of the profiles which have this bio
         self.assertNotEquals(my_profile, None)
 
-=======
     def test_bio(self):
         testU = Profile.user.get(bio="Hello, tutor me")
         self.assertEqual(testU.bio, "Hello, tutor me")
@@ -46,4 +45,4 @@ class UserTestCase(TestCase):
     def test_image(self):
         testU = Profile.user.get(image="default.jpg")
         self.assertEqual(testU.image,"default.jpg")
->>>>>>> b7ee4e4903d677376d2ed514b9d8b2310d3dcdb5
+

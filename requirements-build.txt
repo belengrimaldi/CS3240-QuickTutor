@@ -21,7 +21,6 @@ django-bootstrap==0.2.4
 django-bootstrap4==1.1.1
 django-crispy-forms==1.8.1
 django-excel-response2==2.0.8
-django-heroku==0.3.1
 django-oauth-toolkit==1.2.0
 django-six==1.0.4
 gmane==0.1.dev25

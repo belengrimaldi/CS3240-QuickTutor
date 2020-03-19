@@ -65,9 +65,23 @@
             <div class="col-md-6">
                 <h4>map will go here maybe?</h4>
             </div>
+
+
+
         </div>
 
-
+        <h5>Inbox</h5>
+            {% if inbox %}
+                {% for m in inbox %}
+                    <br>
+                    <div class="col-md-6">
+                        <p>From {{ m.sender }}</p>
+                        <p>{{m.msg_content}}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>fart</p>
+            {% endif %}
 
 
         {% endblock %}

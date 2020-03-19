@@ -6,8 +6,8 @@ from django.contrib.auth import logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader
 from django.db import transaction
-from .models import Profile
-from .forms import UserForm,ProfileUpdateForm
+from .models import Profile, Message
+from .forms import UserForm,ProfileUpdateForm, MessageForm
 from django.contrib import messages
 
 #Create your views here
@@ -15,21 +15,41 @@ from django.contrib import messages
 @login_required
 def Home(request):
     available_tutors = Profile.objects.filter(activeTutor=True)
+    inbox = Message.objects.filter(receiver=request.user)
+    if inbox:
+        print("fart")
     template = loader.get_template('home.html')
     context = {
         'available_tutors': available_tutors,
+        'inbox': inbox,
     }
     return HttpResponse(template.render(context, request))
 
-    # return render(request, 'home.html')
+
+def Send_Box(request):
+    if request.method == "POST":
+        form = MessageForm(request.POST, instance=request.user)
+        if form.is_valid():
+            try:
+                receiver_ob = User.objects.get(email=form.cleaned_data['recipient'])
+            except User.DoesNotExist:
+                messages.error(request, f'The specified recipient does not exist')
+                return redirect('send.html')
+            msg = Message(
+                sender = request.user,
+                receiver = receiver_ob,
+                msg_content = form.cleaned_data['msg_content'],
+            )
+            msg.save()
+            messages.success(request, f'Your message has been sent!')
+            return redirect('send.html')
+    else:
+        form = MessageForm()
+    return render(request, 'send.html', {'form': form})
 
 @login_required
 def SeeProfile(request):
     return render(request, 'profile.html')
-
-# @login_required
-# def Tutee(request):
-#     return render(request, 'tutee.html')
 
 @login_required
 def Prof(request):
@@ -52,27 +72,7 @@ def Prof(request):
         'p_form': p_form
     }
     return render(request, 'update_profile.html', context)
-"""
-@login_required
-@transaction.atomic
-def update_profile(request):
-    if request.method == 'POST':
-        user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            return HttpResponseRedirect('/')
-        else:
-            messages.error(request, _('Please correct the error below.'))
-    else:
-        user_form = UserForm(instance=request.user)
-        profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'home/update_profile.html', {
-        'user_form': user_form,
-        'profile_form': profile_form
-    })
-"""
+
 def Logout(request):
     logout(request)
     return HttpResponseRedirect('/')

@@ -6,5 +6,5 @@ urlpatterns = [
     url(r'^profile/update', views.Prof),
     url(r'^profile/viewprofile', views.SeeProfile),
     url(r'^account/logout/$', views.Logout),
-    url(r'^send', views.Send_Box),
+    url(r'^send', views.Send_Box, name='send'),
 ]

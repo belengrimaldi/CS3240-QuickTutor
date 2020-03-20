@@ -16,8 +16,6 @@ from django.contrib import messages
 def Home(request):
     available_tutors = Profile.objects.filter(activeTutor=True)
     inbox = Message.objects.filter(receiver=request.user)
-    if inbox:
-        print("fart")
     template = loader.get_template('home.html')
     context = {
         'available_tutors': available_tutors,
@@ -25,7 +23,7 @@ def Home(request):
     }
     return HttpResponse(template.render(context, request))
 
-
+@login_required
 def Send_Box(request):
     if request.method == "POST":
         form = MessageForm(request.POST, instance=request.user)

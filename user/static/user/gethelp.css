@@ -2,14 +2,10 @@
     text-align: center;
 }
 
-.welcome {
-    margin: 2rem auto;
+.ttl {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
-
-/* .listView {
-    background-color: #3D6C7F;
-    border-radius: 1rem;
-} */
 
 .listItem {
     background-color: #3D6C7F;

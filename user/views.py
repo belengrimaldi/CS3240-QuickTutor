@@ -14,14 +14,16 @@ from django.contrib import messages
 
 @login_required
 def Home(request):
+    return render(request, 'home.html')
+
+@login_required
+def GetHelp(request):
     available_tutors = Profile.objects.filter(active_tutor=True)
-    template = loader.get_template('home.html')
+    template = loader.get_template('gethelp.html')
     context = {
         'available_tutors': available_tutors,
     }
     return HttpResponse(template.render(context, request))
-
-    # return render(request, 'home.html')
 
 @login_required
 def SeeProfile(request):

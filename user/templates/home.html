@@ -20,7 +20,7 @@
             {% for tutor in available_tutors %}
                 <div class="list-group"> 
                     <div class="row justify-content-center">
-                        <a data-toggle="modal" href="" data-target="#{{tutor.user}}" class="list-group-item listItem" >{{tutor.user}}</a> 
+                        <a data-toggle="modal" href="" data-target="#{{tutor.user}}" class="list-group-item listItem" >{{tutor.user.first_name}} {{tutor.user.last_name}}</a> 
                 
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h3 class="modal-title">{{tutor.user}}'s Profile</h3>
+                        <h3 class="modal-title">{{tutor.user.first_name}} {{tutor.user.last_name}}'s Profile</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -58,7 +58,7 @@
             {% endfor %}
             {% else %}
                 <h2>Welcome {{ user.first_name }}! </h2>
-                <p>Unfortunately, no tutors are available right now.</p>
+                <h2>Unfortunately, no tutors are available right now.</h2>
             {% endif %}
             </div>
 

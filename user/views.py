@@ -14,7 +14,7 @@ from django.contrib import messages
 
 @login_required
 def Home(request):
-    available_tutors = Profile.objects.filter(activeTutor=True)
+    available_tutors = Profile.objects.filter(active_tutor=True)
     template = loader.get_template('home.html')
     context = {
         'available_tutors': available_tutors,

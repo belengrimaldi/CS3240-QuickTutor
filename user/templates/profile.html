@@ -30,12 +30,13 @@
                                 <ul class="list-group list-group-flush">
                                     <p class="list-group-item">Bio: {{ user.profile.bio }}</p>
                                     <p class="list-group-item">Location: {{ user.profile.location }}</p>
-                                    <p class="list-group-item">Birth Date: {{ user.profile.birth_date }}</p>
                                     <p class="list-group-item">School Year: {{ user.profile.year }}</p>
-                                    <div class="tut's">
+                                    <p class="list-group-item">Classes I Need Help With: {{ user.profile.help_needed }}</p>
+                                    <p class="list-group-item">Classes Taken: {{ user.profile.classes_taken }}</p>
+                                    <!-- <div class="tut's">
                                         {% block tut %}
                                         {% endblock %}
-                                    </div>
+                                    </div> -->
                                 </ul>
                             </div>
                         </div>

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<body>
+    <h2>Correspondents</h2>
+    {% if coris %}
+        {% for m in coris %}
+            <br>
+            <div class="col-md-6">
+                <p>From {{ m.sender }} to {{ m.receiver }}</p>
+                <p>{{m.msg_content}}</p>
+            </div>
+        {% endfor %}
+        {% else %}
+            <p>Something has gone terribly, terribly wrong</p>
+    {% endif %}
+</body>
+{% endblock %}

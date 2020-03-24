@@ -14,10 +14,10 @@ class UserForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('bio', 'location', 'year', 'classes_taken', 'help_needed', 'image', 'activeTutor')
+        fields = ('bio', 'location', 'year', 'classes_taken', 'help_needed', 'image', 'active_tutor')
 
 class MessageForm(forms.ModelForm):
     recipient = forms.EmailField(label="Recipient's email", max_length=200)
     class Meta:
         model = Message
-        fields = ('msg_content', 'recipient')
+        fields = ('recipient', 'msg_content' )

@@ -6,3 +6,11 @@
 .cardBlock {
     margin-bottom: 2rem;
 }
+
+.update {
+    text-align: center;
+}
+
+.update:hover {
+    color: white;
+}

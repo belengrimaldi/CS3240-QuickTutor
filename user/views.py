@@ -14,7 +14,7 @@ from django.contrib import messages
 
 @login_required
 def Home(request):
-    available_tutors = Profile.objects.filter(activeTutor=True)
+    available_tutors = Profile.objects.filter(active_tutor=True)
     template = loader.get_template('home.html')
     context = {
         'available_tutors': available_tutors,
@@ -54,10 +54,14 @@ def Messaging(request):
     for msg in sent:
         if msg.receiver not in pen_pals:
             pen_pals.append(msg.receiver)
+
+
     context = {
         'form': form,
         'pen_pals': pen_pals,
     }
+
+
     return render(request, 'send.html', context)
 
 def CorLog(request, pal_username):
@@ -70,7 +74,12 @@ def CorLog(request, pal_username):
     for i in sent:
         coris.append(i)
     coris.sort(key=(lambda x: x.created_at))
-    return render(request, 'log.html', {'coris': coris})
+
+    context = {
+        'coris': coris,
+        'pal' : pen_pal
+    }
+    return render(request, 'log.html', context)
 """
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)

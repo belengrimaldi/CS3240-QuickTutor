@@ -2,24 +2,27 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{% static 'user/tut.css' %}">
+
+
 <html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="{% static 'user/tut.css' %}">
+        
     </head>
     <body>
         <div class="container">
             <div class="row flex-row justify-content-center picAndName">
                 <!-- <div class="col s12 m6 offset-m3"> -->
-                <div class="col-md-3">
-                    <div class="media">
-                        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
-                    </div>
-                    <div class="media-body">
-                        <h2 class="account-heading" style="text-align: center;">{{ user.first_name }} {{ user.last_name }} </h2>
-                    </div>
+                <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+            </div>
+            <div class="row flex-row justify-content-center picAndName">
+                <div class="media-body update">
+                    <h2 class="account-heading" style="text-align: center;">{{ user.first_name }} {{ user.last_name }} </h2>
+                    <h6 class="update" style="text-align: center;"><a class="update" href="/profile/update">Update Profile</a></h6>
                 </div>
             </div>
             <!-- <div role="main" class="container"> -->

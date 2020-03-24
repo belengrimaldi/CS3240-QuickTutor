@@ -23,7 +23,7 @@ class Profile(models.Model):
     help_needed = models.TextField(max_length=300, blank=True)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
 
-    activeTutor = models.BooleanField(default=False)
+    active_tutor = models.BooleanField(default=False)
 
     def __str__(self):
             return f'{self.user.username} Profile'

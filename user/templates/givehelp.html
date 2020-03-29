@@ -7,57 +7,53 @@
 </head>
 
 <body>
-
     <div class="container">
         <div class="row justify-content-center">
-            <h1 class="ttl">Available Tutors</h1>
+            <h1 class="ttl">Tutee Requests</h1>
         </div>
 
 
         <div class="row justify-content-center">
             <div class="col-md-6 listView">
-            {% if available_tutors %}
-            <!-- <h2>List of available tutors</h2>  -->
-            {% for tutee in available_tutees %}
+            
+            {% for tutor in received %}
                 <div class="list-group"> 
                     <div class="row justify-content-center">
-                        <a data-toggle="modal" href="" data-target="#{{tutor.user}}" class="list-group-item listItem" >{{tutor.user.first_name}} {{tutor.user.last_name}}</a> 
+                        <a data-toggle="modal" href="" data-target="#{{tutor.sender}}" class="list-group-item listItem" >{{tutor.sender.first_name}} {{tutor.sender.last_name}}</a> 
                     </div>
                 </div>
 
                 <!-- <div>{{ tutor.user }}</div> -->
 
-                <div class="modal fade" id="{{tutor.user}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="{{tutor.sender}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h3 class="modal-title">{{tutee.user.first_name}} {{tutee.user.last_name}}'s Profile</h3>
+                        <h3 class="modal-title">{{tutor.sender.first_name}} {{tutor.sender.last_name}}'s Profile</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                         </div>
                         <div class="modal-body">
-                        {% ifequal tutor.year None %}
-                        <p>Year: N/A</p>
+                        {% ifequal tutor.sender.year None %}
+                        <p class = "text-left">Year: N/A</p>
                         {% else %}
-                            <p>Year: {{tutor.year}}</p>
+                            <p>Year: {{tutor.sender.year}}</p>
                         {% endifequal %}
-                        <p>Bio: {{tutor.bio}}</p>
-                        <p>Location: {{tutor.location}}</p>
-                        <p>Classes I can help with: {{tutor.classes_taken}}</p>
+                        <p class = "text-left">Class {{tutor.sender.first_name}} needs help with: {{tutor.class_desc}}</p>
+                        <p class = "text-left">Description: {{tutor.help_desc}}</p>
+                        <p class = "text-left">Locations where {{tutor.sender.first_name}} would be okay meeting: {{tutor.meeting_places}}</p>
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <a href="/filloutsheet/" class="btn btn-info" role="button">Send a request</a>
+                        
+                        <a href="/filloutsheet/" data-target="#{{tutor.user}}">Submit</a> 
                     </div>
                     </div>
                 </div>
+                </div>
 
             {% endfor %}
-            {% else %}
-                <h2>Welcome {{ user.first_name }}! </h2>
-                <h2>Unfortunately, no tutees are available right now.</h2>
-            {% endif %}
             </div>
         {% endblock %}
 
@@ -68,4 +64,5 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     </div>
+    
 </body>

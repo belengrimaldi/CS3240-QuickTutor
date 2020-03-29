@@ -26,7 +26,7 @@ MEETING_PLACES = (
 )
 class Fill_Out_Sheet(models.Model):
     sender = models.ForeignKey(User, related_name="sender", on_delete=models.CASCADE)
-    receiver = models.ForeignKey(User, related_name="receiver", on_delete=models.CASCADE)                    
+    receiver = models.ForeignKey(User, related_name="receiver", on_delete=models.CASCADE) 
     class_desc = models.CharField(max_length=30, blank=True)
     help_desc = models.TextField(max_length=100, blank=True)
     time_slot = models.CharField(

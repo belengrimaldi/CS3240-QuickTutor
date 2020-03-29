@@ -38,36 +38,7 @@ def filloutform(request):
     else:
         form = FillOutSheetForm()
 
-    received = Fill_Out_Sheet.objects.filter(receiver=request.user)
-    sent = Fill_Out_Sheet.objects.filter(sender=request.user)
-    pen_pals = []
-    for msg in received:
-        if msg.sender not in pen_pals:
-            pen_pals.append(msg.sender)
-    for msg in sent:
-        if msg.receiver not in pen_pals:
-            pen_pals.append(msg.receiver)
-
     context = {'form': form}
-    return render(request, 'filloutsheet.html', context)
-
-
-@login_required
-def corLogForFOS(request, pal_username):
-    pen_pal = User.objects.get(username=pal_username)
-    coris = []
-    received = Fill_Out_Sheet.objects.filter(
-        receiver=request.user, sender=pen_pal)
-    sent = Fill_Out_Sheet.objects.filter(receiver=pen_pal, sender=request.user)
-    for i in recieved:
-        coris.append(i)
-    for i in sent:
-        coris.append(i)
-    # could put a sort here by time created, but really unnecessary for fill out form i think
-    context = {
-        'coris': coris,
-        'pal': pen_pal,
-    }
     return render(request, 'filloutsheet.html', context)
 
 
@@ -90,16 +61,8 @@ def SeeProfile(request):
 def GiveHelp(request):
     received = Fill_Out_Sheet.objects.filter(receiver=request.user)
     sent = Fill_Out_Sheet.objects.filter(sender=request.user)
-    pen_pals = []
-    for msg in received:
-        if msg.sender not in pen_pals:
-            pen_pals.append(msg.sender)
-    for msg in sent:
-        if msg.receiver not in pen_pals:
-            pen_pals.append(msg.receiver)
 
     context = {'received':received,'sent':sent}
-
     return render(request, 'givehelp.html', context)    
 
 # @login_required

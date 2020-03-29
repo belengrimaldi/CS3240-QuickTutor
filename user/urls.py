@@ -7,6 +7,6 @@ urlpatterns = [
     url(r'^profile/update', views.Prof),
     url(r'^profile/viewprofile', views.SeeProfile),
     url(r'^account/logout/$', views.Logout),
-    url(r'^givehelp', views.GiveHelp),
+    url(r'^givehelp', views.filloutform),
     url(r'^filloutsheet',views.filloutform),
 ]

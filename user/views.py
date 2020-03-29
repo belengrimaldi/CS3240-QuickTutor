@@ -23,10 +23,11 @@ def filloutform(request):
     if request.method == 'POST':
         form = FillOutSheetForm(request.POST, instance=request.user)
         if form.is_valid():
-            receiver_ob = User.objects.get(email=form.cleaned_data['recipient'])
+            receiver_ob = User.objects.get(
+                email=form.cleaned_data['recipient'])
             formContent = Fill_Out_Sheet(
                 sender=request.user,
-                reciever=receiver_ob,
+                receiver=receiver_ob,
                 class_desc=form.cleaned_data['class_desc'],
                 help_desc=form.cleaned_data['help_desc'],
                 time_slot=form.cleaned_data['time_slot'],
@@ -87,13 +88,19 @@ def SeeProfile(request):
 
 @login_required
 def GiveHelp(request):
-    available_tutees = Fill_Out_Sheet.objects.filter(
-        tutor_name=request.user.first_name)
-    template = loader.get_template('gethelp.html')
-    context = {
-        'available_tutees': available_tutees,
-    }
-    return render(request, 'givehelp.html', context)
+    received = Fill_Out_Sheet.objects.filter(receiver=request.user)
+    sent = Fill_Out_Sheet.objects.filter(sender=request.user)
+    pen_pals = []
+    for msg in received:
+        if msg.sender not in pen_pals:
+            pen_pals.append(msg.sender)
+    for msg in sent:
+        if msg.receiver not in pen_pals:
+            pen_pals.append(msg.receiver)
+
+    context = {'received':received,'sent':sent}
+
+    return render(request, 'givehelp.html', context)    
 
 # @login_required
 # def Tutee(request):

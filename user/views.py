@@ -11,6 +11,7 @@ from .forms import UserForm, ProfileUpdateForm, FillOutSheetForm
 from .models import *
 from django.contrib import messages
 
+
 # Create your views here
 
 
@@ -60,9 +61,7 @@ def SeeProfile(request):
 @login_required
 def GiveHelp(request):
     received = Fill_Out_Sheet.objects.filter(receiver=request.user)
-    sent = Fill_Out_Sheet.objects.filter(sender=request.user)
-
-    context = {'received':received,'sent':sent}
+    context = {'received':received,}
     return render(request, 'givehelp.html', context)    
 
 # @login_required

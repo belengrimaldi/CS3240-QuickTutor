@@ -3,9 +3,46 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from PIL import Image
+from django.forms import ModelForm
+from django import forms
 import os
 
-#Create your models here
+TIMESLOT_OPTIONS = (
+    ("1","5-15 minutes"),
+    ("2","15-30 minutes"),
+    ("3","30 minutes-1 hour"),
+    ("4", "More than 1 hour"),
+)
+
+MEETING_PLACES = (
+    ("1","Alderman Library"),
+    ("2","Clark (Brown) Library"),
+    ("3","Clemmons Library"),
+    ("4", "Starbucks (Corner)"),
+    ("5", "Starbucks (Newcomb)"),
+    ("6", "Argo Tea"),
+    ("7", "Einstein Bros (Rice)"),
+    ("8", "15|15"),
+)
+class Fill_Out_Sheet(models.Model):
+    sender = models.ForeignKey(User, related_name="sender", on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, related_name="receiver", on_delete=models.CASCADE)                    
+    class_desc = models.CharField(max_length=30, blank=True)
+    help_desc = models.TextField(max_length=100, blank=True)
+    time_slot = models.CharField(
+        max_length=20,
+        choices = TIMESLOT_OPTIONS,
+        default = '1'
+        )
+    meeting_places = models.CharField(
+        max_length=40,
+        choices = MEETING_PLACES,
+        default='8'
+    )
+    
+    def __str__(self):
+        return self.class_desc
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)

@@ -16,6 +16,12 @@ from django.contrib import messages
 def Home(request):
     available_tutors = Profile.objects.filter(active_tutor=True)
     template = loader.get_template('home.html')
+    return render(request, 'home.html')
+
+@login_required
+def GetHelp(request):
+    available_tutors = Profile.objects.filter(active_tutor=True)
+    template = loader.get_template('gethelp.html')
     context = {
         'available_tutors': available_tutors,
     }

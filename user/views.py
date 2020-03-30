@@ -17,6 +17,8 @@ from django.contrib import messages
 
 @login_required
 def Home(request):
+    accepted_appoint = Fill_Out_Sheet.objects.filter(sender = request.user).filter(has_tutor_accepted=True)
+    rejected_appoint = Fill_Out_Sheet.objects.filter(sender = request.user).filter(has_tutor_rejected=True)
     return render(request, 'home.html')
 
 
@@ -26,13 +28,14 @@ def filloutform(request):
         if form.is_valid():
             receiver_ob = User.objects.get(
                 email=form.cleaned_data['recipient'])
+            
             formContent = Fill_Out_Sheet(
                 sender=request.user,
                 receiver=receiver_ob,
                 class_desc=form.cleaned_data['class_desc'],
                 help_desc=form.cleaned_data['help_desc'],
                 time_slot=form.cleaned_data['time_slot'],
-                meeting_places=form.cleaned_data['meeting_places'],
+                meeting_places=form.cleaned_data['meeting_places']
             )
             formContent.save()
             return redirect('filloutsheet.html')
@@ -57,12 +60,12 @@ def GetHelp(request):
 def SeeProfile(request):
     return render(request, 'profile.html')
 
-
 @login_required
 def GiveHelp(request):
     received = Fill_Out_Sheet.objects.filter(receiver=request.user)
     context = {'received':received,}
-    return render(request, 'givehelp.html', context)    
+    return render(request, 'givehelp.html', context)
+        
 
 # @login_required
 # def Tutee(request):

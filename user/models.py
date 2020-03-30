@@ -15,31 +15,33 @@ TIMESLOT_OPTIONS = (
 )
 
 MEETING_PLACES = (
-    ("1","Alderman Library"),
-    ("2","Clark (Brown) Library"),
-    ("3","Clemmons Library"),
-    ("4", "Starbucks (Corner)"),
-    ("5", "Starbucks (Newcomb)"),
-    ("6", "Argo Tea"),
-    ("7", "Einstein Bros (Rice)"),
-    ("8", "15|15"),
+    ("Alderman Library","Alderman Library"),
+    ("Clark (Brown) Library","Clark (Brown) Library"),
+    ("Clemmons Library","Clemmons Library"),
+    ("Starbucks (Corner)", "Starbucks (Corner)"),
+    ("Starbucks (Newcomb)", "Starbucks (Newcomb)"),
+    ("Argo Tea", "Argo Tea"),
+    ("Einstein Bros (Rice)", "Einstein Bros (Rice)"),
+    ("15|15", "15|15"),
 )
+
 class Fill_Out_Sheet(models.Model):
+    has_tutor_accepted = models.BooleanField(default=False)
+    has_tutor_rejected = models.BooleanField(default=True)
     sender = models.ForeignKey(User, related_name="sender", on_delete=models.CASCADE)
     receiver = models.ForeignKey(User, related_name="receiver", on_delete=models.CASCADE) 
     class_desc = models.CharField(max_length=30, blank=True)
     help_desc = models.TextField(max_length=100, blank=True)
+    meeting_places = models.CharField(
+        max_length = 200,
+        choices = MEETING_PLACES,
+        default = "15|15",
+    )
     time_slot = models.CharField(
         max_length=20,
         choices = TIMESLOT_OPTIONS,
         default = '1'
         )
-    meeting_places = models.CharField(
-        max_length=40,
-        choices = MEETING_PLACES,
-        default='8'
-    )
-    
     def __str__(self):
         return self.class_desc
 

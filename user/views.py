@@ -23,7 +23,6 @@ def Home(request):
 
 @login_required
 def Messaging(request):
-#    inbox = Message.objects.filter(receiver=request.user) THE INBOX WON"T JUST BE SITTING IN THE MESSAGE PAGE
 #   Makes the message box (the box with which to send messages)
     if request.method == "POST":
         form = MessageForm(request.POST, instance=request.user)

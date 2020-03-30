@@ -20,4 +20,4 @@ class MessageForm(forms.ModelForm):
     recipient = forms.EmailField(label="Recipient's email", max_length=200)
     class Meta:
         model = Message
-        fields = ('recipient', 'msg_content' )
+        fields = ('recipient', 'msg_content')

@@ -32,6 +32,10 @@ class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = ('recipient', 'msg_content')
+        labels = {
+            "recipient":"",
+            "msg_content":"",
+        }
         
 class FillOutSheetForm(forms.ModelForm):
     recipient = forms.EmailField(label="Recipient's email",max_length=200)

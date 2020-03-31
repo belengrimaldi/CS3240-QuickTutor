@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -60,9 +61,8 @@
 							<!-- {{ form.as_p}} -->
 							{{ form.non_field_errors }}
 							<div class="fieldWrapper form-group row justify-content-center">
-								{{ form.recipient.errors }}
-								<label class="recip" for="{{ form.recipient.id_for_label }}">Recipient Email:</label>
-								{{ form.recipient }}
+								{{ form.recipient.error }}
+								{{ form.recipient|as_crispy_field }}
 							</div>
 							<div class="fieldWrapper form-group row justify-content-center message">
 								{{ form.msg_content.errors }}
@@ -70,10 +70,10 @@
 							</div>
 							<div class="fieldWrapper form-group row justify-content-center">
 								<div class="col-md-12">
-									{{ form.msg_content }}
+									{{ form.msg_content|as_crispy_field }}
 								</div>
 							</div>
-							<button type="submit" class="save btn btn-primary">Send</button>
+							<button type="submit" class="save btn btn-secondary">Send</button>
 						</form>
 					</div>
 				</div>

@@ -6,14 +6,16 @@ from django.contrib.auth import logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader
 from django.db import transaction
-from .models import Profile
-from .forms import UserForm,ProfileUpdateForm
+from .models import Profile, Message
+from .forms import UserForm,ProfileUpdateForm, MessageForm
 from django.contrib import messages
 
 #Create your views here
 
 @login_required
 def Home(request):
+    available_tutors = Profile.objects.filter(active_tutor=True)
+    template = loader.get_template('home.html')
     return render(request, 'home.html')
 
 @login_required
@@ -26,12 +28,67 @@ def GetHelp(request):
     return HttpResponse(template.render(context, request))
 
 @login_required
+def Messaging(request):
+#   Makes the message box (the box with which to send messages)
+    if request.method == "POST":
+        form = MessageForm(request.POST, instance=request.user)
+        if form.is_valid():
+            try:
+                receiver_ob = User.objects.get(email=form.cleaned_data['recipient'])
+            except User.DoesNotExist:
+                messages.error(request, f'The specified recipient does not exist')
+                return redirect('send.html')
+            msg = Message(
+                sender = request.user,
+                receiver = receiver_ob,
+                msg_content = form.cleaned_data['msg_content'],
+            )
+            msg.save()
+            messages.success(request, f'Your message has been sent!')
+            return redirect('send.html')
+    else:
+        form = MessageForm()
+
+#   Makes the list of people who you've messaged or who have messaged you
+    received = Message.objects.filter(receiver=request.user)
+    sent = Message.objects.filter(sender=request.user)
+    pen_pals = []
+    for msg in received:
+        if msg.sender not in pen_pals:
+            pen_pals.append(msg.sender)
+    for msg in sent:
+        if msg.receiver not in pen_pals:
+            pen_pals.append(msg.receiver)
+
+
+    context = {
+        'form': form,
+        'pen_pals': pen_pals,
+    }
+
+
+    return render(request, 'send.html', context)
+
+def CorLog(request, pal_username):
+    pen_pal = User.objects.get(username=pal_username)
+    coris = []
+    received = Message.objects.filter(receiver=request.user, sender=pen_pal)
+    sent = Message.objects.filter(receiver=pen_pal, sender=request.user)
+    for i in received:
+        coris.append(i)
+    for i in sent:
+        coris.append(i)
+    coris.sort(key=(lambda x: x.created_at), reverse=True)
+
+    context = {
+        'coris': coris,
+        'pal' : pen_pal
+    }
+    return render(request, 'log.html', context)
+
+@login_required
 def SeeProfile(request):
     return render(request, 'profile.html')
-
-# @login_required
-# def Tutee(request):
-#     return render(request, 'tutee.html')
 
 @login_required
 def Prof(request):
@@ -54,27 +111,7 @@ def Prof(request):
         'p_form': p_form
     }
     return render(request, 'update_profile.html', context)
-"""
-@login_required
-@transaction.atomic
-def update_profile(request):
-    if request.method == 'POST':
-        user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            return HttpResponseRedirect('/')
-        else:
-            messages.error(request, _('Please correct the error below.'))
-    else:
-        user_form = UserForm(instance=request.user)
-        profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'home/update_profile.html', {
-        'user_form': user_form,
-        'profile_form': profile_form
-    })
-"""
+
 def Logout(request):
     logout(request)
     return HttpResponseRedirect('/')

@@ -6,6 +6,14 @@ from PIL import Image
 import os
 
 #Create your models here
+
+class Message(models.Model):
+    sender = models.ForeignKey(User, related_name="sender", on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, related_name="receiver", on_delete=models.CASCADE)
+    msg_content = models.TextField(verbose_name='message content', max_length=400, blank=True)
+    created_at = models.TimeField(auto_now_add=True)
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
@@ -68,4 +76,3 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
-

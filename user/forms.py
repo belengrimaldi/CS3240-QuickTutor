@@ -38,7 +38,7 @@ class MessageForm(forms.ModelForm):
         }
         
 class FillOutSheetForm(forms.ModelForm):
-    recipient = forms.EmailField(label="Recipient's email",max_length=200)
+    recipient = forms.EmailField(label="",max_length=200)
     meeting_places = forms.MultipleChoiceField(
         required=True,
         widget = forms.CheckboxSelectMultiple,

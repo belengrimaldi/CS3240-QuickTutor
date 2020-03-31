@@ -6,6 +6,11 @@ from django.contrib.auth import logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader
 from django.db import transaction
+<<<<<<< Updated upstream
+=======
+from .models import Profile, Message
+from .forms import UserForm,ProfileUpdateForm, MessageForm
+>>>>>>> Stashed changes
 from .models import Profile, Fill_Out_Sheet
 from .forms import UserForm, ProfileUpdateForm, FillOutSheetForm
 from .models import *

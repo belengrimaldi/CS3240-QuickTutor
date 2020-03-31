@@ -6,14 +6,9 @@ from django.contrib.auth import logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader
 from django.db import transaction
-<<<<<<< HEAD
-from .models import Profile, Message
-from .forms import UserForm,ProfileUpdateForm, MessageForm
-=======
-from .models import Profile, Fill_Out_Sheet
-from .forms import UserForm, ProfileUpdateForm, FillOutSheetForm
+from .models import Profile, Fill_Out_Sheet, Message
+from .forms import UserForm, ProfileUpdateForm, FillOutSheetForm, MessageForm
 from .models import *
->>>>>>> adding_form
 from django.contrib import messages
 
 
@@ -105,6 +100,7 @@ def Messaging(request):
 
     return render(request, 'send.html', context)
 
+@login_required
 def CorLog(request, pal_username):
     pen_pal = User.objects.get(username=pal_username)
     coris = []

@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from .models import Profile, Message
 
 class UserTestCase(TestCase):
-      def test_stupid:
+      def test_stupid(self):
           self.assertEqual(1,1)
 #     def setUp(self):
 

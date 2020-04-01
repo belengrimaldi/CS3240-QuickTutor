@@ -21,3 +21,8 @@ class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = ('recipient', 'msg_content')
+
+class ChatForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ('msg_content',)

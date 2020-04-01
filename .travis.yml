@@ -6,13 +6,13 @@ install:
 script:
 - python manage.py test
 services:
-  - postgresql
+- postgresql
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
+- psql -c 'create database travis_ci_test;' -U postgres
 deploy:
   provider: heroku
   api_key:
-    secure: be034e2a-2581-45c1-b51c-ac8371f209d4
+    secure: JNm6cI0KvCrQRJ7ZXE89zcPNZ8y8dsqeYEJMY19sbiZsi+le7TOD1U3R4TqmVnuNnsaDMFjosnyLQFbk6FPuRRkGMceeM2W61eNx+ArjsaLZRdGvQ5kCRrR6BTFDLywHRD66UoU/gW+JWQr5nBqhTXVTAxgdQSbtWLhHXth4194BxTrviBTEUfJ1UDK6ebgXYYhMhIMhTligbWf87RWUiPcDmq5nKHJ9wnhLnm9sPucIo4MCp9t3m+dBi5ORaK5l2OzLkQ0JjlL1cDiwILOIW7DOBx5mh8h4/Hbwc3CAzdef36s8F80ntnbBEucIIXHAE45EzlfFMYIpHP3vooBbqTUzM5Xtwcderca8OIP5phsJ9razg6hUzaCdZRm/u1UNmBIOp0LjOesVSv4Z9hI3pg1jntww5UzrzX4RbUQHnRYGARPfdf49JjEz+CWJMJ6j2vD2SBXJDzqFS+pKC3zk/PZVjcs62+PlR/QnP7Jd0nbhNV61K4G+6W19xOiUANx+00qFE9uSGPQGpXisj3wlReKbiYhCgOSsvKVZCrWAserIAz67UjbaQsmfCMAng5cRcCfQQXUebuESLpFdQ6peG4dDZiVivQz++L3fwhy7WCc90/iJdc2ZmGtfb+9Ucnkkn2bIGmoORwqxwXKOyG5IGYL4/d4YAthWESeWfLAHMFE=
   app: quick-tutor-tf
-  on:
+  true:
     repo: uva-cs3240-s20/project-101-team-falcon

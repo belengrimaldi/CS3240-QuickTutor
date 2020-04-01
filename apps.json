@@ -1,4 +1,4 @@
-{
+  {
     "name": "Quick-Tutor-tf",
     "scripts": {
     },
@@ -10,12 +10,7 @@
       }
     },
     "addons": [
-      {
-        "plan": "heroku-postgresql",
-        "options": {
-          "version": "9.5"
-        }
-      }
+      "heroku-postgresql"
     ],
     "buildpacks": [
       {

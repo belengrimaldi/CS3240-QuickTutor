@@ -176,6 +176,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '-niiEgaceqgsoQtoyIF_t2WD' #Paste Secret Key
 try:
     # Configure Django App for Heroku.
     import django_heroku
-    django_heroku.settings(locals(), test_runner=False)
+    django_heroku.settings(locals())
 except ImportError:
     found = False

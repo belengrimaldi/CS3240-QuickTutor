@@ -6,3 +6,6 @@ from django.template import loader
 
 def about(request):
     return render(request, 'static/about.html')
+
+def FAQ(request):
+    return render(request, 'static/FAQ.html')

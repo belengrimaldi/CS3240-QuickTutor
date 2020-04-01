@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'user\gethelp.css' %}">
+</head>
+
+<body>
+    <div class="row justify-content-center">
+        <h1 class="ttl">Tutee Requests</h1>
+    </div>
+   
+    <div class="row">
+        {% for tutor in received %}
+        <div class="col-sm-4">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{tutor.sender.first_name}} {{tutor.sender.last_name}}</h5>
+                    <p class="card-text">
+                        {% ifequal tutor.sender.year None %}
+                        <p>Year: N/A</p>
+                        {% else %}
+                        <p>Year: {{tutor.sender.year}}</p>
+                        {% endifequal %}
+                        <p>Class {{tutor.sender.first_name}} needs help with: {{tutor.class_desc}}</p>
+                        <p>Description: {{tutor.help_desc}}</p>
+                        <p>Locations where {{tutor.sender.first_name}} would be okay meeting: {{tutor.meeting_places}}
+                        </p>
+                    </p>
+                    <form method="post" nonvalidate> 
+                        <a href="givehelp.html" class="btn btn-secondary">Accept tutee</a>
+                        <a href="givehelp.html" class="btn btn-secondary">Remove tutee</a>
+                    </form>    
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+
+
+
+    {% endblock %}
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+
+
+</body>

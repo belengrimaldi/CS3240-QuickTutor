@@ -6,3 +6,20 @@
 .cardBlock {
     margin-bottom: 2rem;
 }
+
+.update {
+    text-align: center;
+    color: #3d6c7f;
+}
+
+.hding {
+    text-align: center;
+}
+
+.h2 {
+    text-align: center;
+}
+
+.update:hover {
+    color: #3d6c7f;
+}

@@ -1,0 +1,31 @@
+.recip {
+    margin-right: 1rem;
+}
+
+.title {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+textarea {
+    width: inherit;
+}
+
+.message {
+    margin-bottom: 0rem;
+}
+
+.listItem {
+    background-color: #3D6C7F;
+    color: white;
+    margin-bottom: 1rem;
+    width: 50%;
+}
+
+.list-group-item:last-child {
+    margin-bottom: 1rem;
+}
+
+.list-group-item:hover {
+    color: white;
+}

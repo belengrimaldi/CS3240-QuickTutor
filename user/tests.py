@@ -20,14 +20,14 @@ class UserTestCase(TestCase):
         self.assertNotEquals(my_profile, None)
 
 
-# class ActiveTutorTestCase(TestCase):
-#     def setUp(self):
-#         User.objects.create(email='example@example.com', first_name = 'Emma', last_name = 'Studtmann')
+class ActiveTutorTestCase(TestCase):
+    def setUp(self):
+        User.objects.create(email='example@example.com', first_name = 'Emma', last_name = 'Studtmann')
     
-#     def test_activeTutorSetting(self):
-#         my_user = User.objects.get(email='example@example.com')
-#         my_profile = Profile.objects.get(user=my_user) #This will just return the one user's profile
-#         my_profile.active_tutor = True
+    def test_activeTutorSetting(self):
+        my_user = User.objects.get(email='example@example.com')
+        my_profile = Profile.objects.get(user=my_user) #This will just return the one user's profile
+        my_profile.active_tutor = True
 
 
 class MessageTestCase(TestCase):

@@ -173,7 +173,7 @@ MEDIA_URL = '/media/'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='354861153936-10lli7qhi9h8o60vlhu6rsp8rdqa8cpl.apps.googleusercontent.com'  #Paste CLient Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '-niiEgaceqgsoQtoyIF_t2WD' #Paste Secret Key
 
-import os
-if '/app' in os.environ['HOME']:
+if 'I_AM_HEROKU' in os.environ:
+    # Configure Django App for Heroku.
     import django_heroku
-    django_heroku.settings(locals()) 
+    django_heroku.settings(locals())

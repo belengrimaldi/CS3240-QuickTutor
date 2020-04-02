@@ -7,8 +7,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader
 from django.db import transaction
 from .models import Profile, Fill_Out_Sheet, Message
-from .forms import UserForm, ProfileUpdateForm, FillOutSheetForm, MessageForm
-from .models import *
+from .forms import UserForm, ProfileUpdateForm, FillOutSheetForm, MessageForm, ChatForm
 from django.contrib import messages
 
 
@@ -104,6 +103,22 @@ def Messaging(request):
 def CorLog(request, pal_username):
     pen_pal = User.objects.get(username=pal_username)
     coris = []
+
+    #Make send box at bottom of screen
+    if request.method == "POST":
+        form = ChatForm(request.POST, instance=request.user)
+        if form.is_valid():
+            msg = Message(
+                sender = request.user,
+                receiver = pen_pal,
+                msg_content = form.cleaned_data['msg_content'],
+            )
+            msg.save()
+            form = ChatForm()
+    else:
+        form = ChatForm()
+
+    #Make corrispondence list that's displayed
     received = Message.objects.filter(receiver=request.user, sender=pen_pal)
     sent = Message.objects.filter(receiver=pen_pal, sender=request.user)
     for i in received:
@@ -114,7 +129,8 @@ def CorLog(request, pal_username):
 
     context = {
         'coris': coris,
-        'pal' : pen_pal
+        'pal' : pen_pal,
+        'form' : form,
     }
     return render(request, 'log.html', context)
 

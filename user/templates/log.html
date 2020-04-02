@@ -41,6 +41,13 @@
             {% endif %}
         </div>
     </div>
+    <form method="POST" class="chat-form" novalidate>{% csrf_token %}
+        <div class="col-md-12">
+            {{ form.msg_content }}
+        </div>
+        <button type="submit" class="save btn btn-primary">Send</button>
+    </form>
+
 </body>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

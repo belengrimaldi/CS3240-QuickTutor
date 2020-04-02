@@ -9,8 +9,17 @@
 
 .update {
     text-align: center;
+    color: #3d6c7f;
+}
+
+.hding {
+    text-align: center;
+}
+
+.h2 {
+    text-align: center;
 }
 
 .update:hover {
-    color: white;
+    color: #3d6c7f;
 }

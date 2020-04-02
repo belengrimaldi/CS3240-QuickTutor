@@ -6,17 +6,46 @@ from django.contrib.auth import logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader
 from django.db import transaction
-from .models import Profile, Message
-from .forms import UserForm,ProfileUpdateForm, MessageForm, ChatForm
+from .models import Profile, Fill_Out_Sheet, Message
+from .forms import UserForm, ProfileUpdateForm, FillOutSheetForm, MessageForm, ChatForm
 from django.contrib import messages
 
-#Create your views here
+
+# Create your views here
+
 
 @login_required
 def Home(request):
     available_tutors = Profile.objects.filter(active_tutor=True)
     template = loader.get_template('home.html')
+    accepted_appoint = Fill_Out_Sheet.objects.filter(sender = request.user).filter(has_tutor_accepted=True)
+    rejected_appoint = Fill_Out_Sheet.objects.filter(sender = request.user).filter(has_tutor_rejected=True)
     return render(request, 'home.html')
+
+
+def filloutform(request):
+    if request.method == 'POST':
+        form = FillOutSheetForm(request.POST, instance=request.user)
+        if form.is_valid():
+            receiver_ob = User.objects.get(
+                email=form.cleaned_data['recipient'])
+            
+            formContent = Fill_Out_Sheet(
+                sender=request.user,
+                receiver=receiver_ob,
+                class_desc=form.cleaned_data['class_desc'],
+                help_desc=form.cleaned_data['help_desc'],
+                time_slot=form.cleaned_data['time_slot'],
+                meeting_places=form.cleaned_data['meeting_places']
+            )
+            formContent.save()
+            return redirect('filloutsheet.html')
+    else:
+        form = FillOutSheetForm()
+
+    context = {'form': form}
+    return render(request, 'filloutsheet.html', context)
+
 
 @login_required
 def GetHelp(request):
@@ -25,7 +54,8 @@ def GetHelp(request):
     context = {
         'available_tutors': available_tutors,
     }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'gethelp.html', context)
+
 
 @login_required
 def Messaging(request):
@@ -69,6 +99,7 @@ def Messaging(request):
 
     return render(request, 'send.html', context)
 
+@login_required
 def CorLog(request, pal_username):
     pen_pal = User.objects.get(username=pal_username)
     coris = []
@@ -108,6 +139,18 @@ def SeeProfile(request):
     return render(request, 'profile.html')
 
 @login_required
+def GiveHelp(request):
+    received = Fill_Out_Sheet.objects.filter(receiver=request.user)
+    context = {'received':received,}
+    return render(request, 'givehelp.html', context)
+        
+
+# @login_required
+# def Tutee(request):
+#     return render(request, 'tutee.html')
+
+
+@login_required
 def Prof(request):
     if request.method == 'POST':
         u_form = UserForm(request.POST, instance=request.user)
@@ -128,6 +171,30 @@ def Prof(request):
         'p_form': p_form
     }
     return render(request, 'update_profile.html', context)
+
+
+"""
+@login_required
+@transaction.atomic
+def update_profile(request):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return HttpResponseRedirect('/')
+        else:
+            messages.error(request, _('Please correct the error below.'))
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'home/update_profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
+"""
+
 
 def Logout(request):
     logout(request)

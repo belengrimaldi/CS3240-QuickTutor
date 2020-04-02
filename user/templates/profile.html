@@ -20,8 +20,8 @@
                 <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
             </div>
             <div class="row flex-row justify-content-center picAndName">
-                <div class="media-body update">
-                    <h2 class="account-heading" style="text-align: center;">{{ user.first_name }} {{ user.last_name }} </h2>
+                <div class="media-body">
+                    <h2 class="account-heading hding">{{ user.first_name }} {{ user.last_name }} </h2>
                     <h6 class="update" style="text-align: center;"><a class="update" href="/profile/update">Update Profile</a></h6>
                 </div>
             </div>
@@ -31,11 +31,19 @@
                         <div class="card">
                             <div class="card-body">
                                 <ul class="list-group list-group-flush">
-                                    <p class="list-group-item">Bio: {{ user.profile.bio }}</p>
-                                    <p class="list-group-item">Location: {{ user.profile.location }}</p>
-                                    <p class="list-group-item">School Year: {{ user.profile.year }}</p>
-                                    <p class="list-group-item">Classes I Need Help With: {{ user.profile.help_needed }}</p>
-                                    <p class="list-group-item">Classes Taken: {{ user.profile.classes_taken }}</p>
+
+                                    {% ifequal user.profile.active_tutor True %}
+                                        <p class="list-group-item"><b>Active Tutor Status:</b> Live</p>
+                                    {% else %}
+                                        <p class="list-group-item"><b>Active Tutor Status:</b> Not live</p>
+                                    {% endifequal %}
+
+                                    <p class="list-group-item"><b>Bio:</b> {{ user.profile.bio }}</p>
+                                    <p class="list-group-item"><b>Location:</b> {{ user.profile.location }}</p>
+                                    <p class="list-group-item"><b>School Year:</b> {{ user.profile.year }}</p>
+                                    <p class="list-group-item"><b>Classes I Need Help With:</b> {{ user.profile.help_needed }}</p>
+                                    <p class="list-group-item"><b>Classes Taken:</b> {{ user.profile.classes_taken }}</p>
+
                                     <!-- <div class="tut's">
                                         {% block tut %}
                                         {% endblock %}

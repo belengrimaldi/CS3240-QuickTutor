@@ -1,4 +1,4 @@
-{
+  {
     "name": "Quick-Tutor-tf",
     "scripts": {
     },
@@ -10,7 +10,7 @@
       }
     },
     "addons": [
-      "heroku-sqlite"
+      "heroku-postgresql"
     ],
     "buildpacks": [
       {

@@ -114,9 +114,8 @@ def CorLog(request, pal_username):
                 msg_content = form.cleaned_data['msg_content'],
             )
             msg.save()
-            form = ChatForm()
-    else:
-        form = ChatForm()
+
+    form = ChatForm()
 
     #Make corrispondence list that's displayed
     received = Message.objects.filter(receiver=request.user, sender=pen_pal)

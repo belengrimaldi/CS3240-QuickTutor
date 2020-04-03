@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -11,8 +12,8 @@
             <h2 class="title">Messages between you and {{pal.first_name}} {{pal.last_name}}</h2>
         </div>
     </div>
-    <div class="chatBox">
-        <div class="container containerCB">
+    <div class="container containerCB">
+        <div class="container chatBox">
             {% if coris %}
                 {% for m in coris %}
                     {% ifequal m.sender pal %}
@@ -40,13 +41,18 @@
                     <p>Something has gone terribly, terribly wrong</p>
             {% endif %}
         </div>
-    </div>
-    <form method="POST" class="chat-form" novalidate>{% csrf_token %}
-        <div class="col-md-12">
-            {{ form.msg_content }}
+        <div class="form-group">
+            <div class="text-center">
+                <form method="POST" class="chat-form" novalidate>{% csrf_token %}
+                    <div class="row justify-content-center">
+                        {{ form.msg_content }}
+                        <button type="submit" class="save btn btn-primary">Send</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <button type="submit" class="save btn btn-primary">Send</button>
-    </form>
+    </div>
+    
 
 </body>
 

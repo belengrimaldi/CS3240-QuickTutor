@@ -118,12 +118,19 @@ def CorLog(request, pal_username):
     form = ChatForm()
 
     #Make corrispondence list that's displayed
-    received = Message.objects.filter(receiver=request.user, sender=pen_pal)
-    sent = Message.objects.filter(receiver=pen_pal, sender=request.user)
-    for i in received:
+    # received = Message.objects.filter(receiver=request.user, sender=pen_pal)
+    # sent = Message.objects.filter(receiver=pen_pal, sender=request.user)
+    # for i in received:
+    #     coris.append(i)
+    # for i in sent:
+    #     coris.append(i)
+    # coris.sort(key=(lambda x: x.created_at), reverse=True)
+
+    allMsg = Message.objects.filter(receiver=pen_pal, sender=request.user) | Message.objects.filter(receiver=request.user, sender=pen_pal)
+    allMsgOrdered = allMsg.order_by('-created_at')
+    for i in allMsgOrdered:
         coris.append(i)
-    for i in sent:
-        coris.append(i)
+    
     coris.sort(key=(lambda x: x.created_at), reverse=True)
 
     context = {

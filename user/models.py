@@ -5,7 +5,10 @@ from django.dispatch import receiver
 from PIL import Image
 from django.forms import ModelForm
 from django import forms
+from django.utils import timezone
+
 import os
+
 
 TIMESLOT_OPTIONS = (
     ("1","5-15 minutes"),
@@ -27,11 +30,16 @@ MEETING_PLACES = (
 
 #Create your models here
 
+class AutoDateTimeField(models.DateTimeField):
+    def pre_save(self, model_instance, add):
+        return timezone.now()
+
 class Message(models.Model):
     sender = models.ForeignKey(User, related_name="sender", on_delete=models.CASCADE)
     receiver = models.ForeignKey(User, related_name="receiver", on_delete=models.CASCADE)
     msg_content = models.TextField(verbose_name='message content', max_length=400, blank=True)
-    created_at = models.TimeField(auto_now_add=True)
+    # created_at = models.TimeField(auto_now_add=True)
+    created_at = models.TimeField(default=timezone.now)
 
 
 

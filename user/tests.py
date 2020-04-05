@@ -32,26 +32,29 @@ class UserTestCase(TestCase):
 #         my_profile.active_tutor = True
 
 
-# class MessageTestCase(TestCase):
-#     def setUp(self):
+class MessageTestCase(TestCase):
+    def setUp(self):
+        User.objects.create(email='row@row.com', first_name = 'Rowan', last_name = 'Dakota', username='row')
+        User.objects.create(email='foo@foo.com', first_name = 'Foo', last_name = 'Bar', username='foo')
+        User.objects.create(email='poo@poo.com', first_name = 'Poo', last_name = 'Poo', username='poo')
 
-#         User.objects.create(email='row@row.com', first_name = 'Rowan', last_name = 'Dakota', username='row')
-#         User.objects.create(email='foo@foo.com', first_name = 'Foo', last_name = 'Bar', username='foo')
+    def test_Message(self):
 
-#     def test_Message(self):
+         foo = User.objects.get(email='foo@foo.com')
+         row = User.objects.get(email='row@row.com')
+         poo = User.objects.get(email='poo@poo.com')
 
-#         foo = User.objects.get(email='foo@foo.com')
-#         row = User.objects.get(email='row@row.com')
+         msg = Message(
+                 sender = foo,
+                 receiver = row,
+                 msg_content = "What's up my hommie g dog?",
+         )
 
+         msg.save()
+         re_msg = Message.objects.get(msg_content="What's up my hommie g dog?")
+         self.assertEqual(re_msg.sender, foo)
+         self.assertEqual(re_msg.receiver, row)
+         self.assertNotEquals(re_msg.sender, poo)
+         self.assertNotEquals(re_msg.sender, None)
 
-#         msg = Message(
-#                 sender = foo,
-#                 receiver = row,
-#                 msg_content = "What's up my hommie g dog?",
-#         )
-
-#         msg.save()
-#         re_msg = Message.objects.get(msg_content="What's up my hommie g dog?")
-#         self.assertEqual(re_msg.sender, foo)
-#         self.assertEqual(re_msg.receiver, row)
 

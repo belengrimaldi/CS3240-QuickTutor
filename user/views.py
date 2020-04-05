@@ -49,7 +49,7 @@ def filloutform(request):
 
 @login_required
 def GetHelp(request):
-    available_tutors = Profile.objects.filter(active_tutor=True)
+    available_tutors = Profile.objects.filter(active_tutor=True)[:10]
     template = loader.get_template('gethelp.html')
     context = {
         'available_tutors': available_tutors,

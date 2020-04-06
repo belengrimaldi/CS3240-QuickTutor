@@ -9,6 +9,7 @@ from django.db import transaction
 from .models import Profile, Fill_Out_Sheet, Message
 from .forms import UserForm, ProfileUpdateForm, FillOutSheetForm, MessageForm, ChatForm
 from django.contrib import messages
+import stripe
 
 
 # Create your views here
@@ -200,7 +201,29 @@ def update_profile(request):
         'profile_form': profile_form
     })
 """
+@login_required
+def payment(request):
+    # Set your secret key. Remember to switch to your live secret key in production!
+    # See your keys here: https://dashboard.stripe.com/account/apikeys
+    stripe.api_key = 'sk_test_v0JuNr2zM1CemDHSdPAV9XBY00HdtFE7EE'
 
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[{
+            'name': 'Tree',
+            'description': 'A green tree',
+            'images': ['https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg'],
+            'amount': 500,
+            'currency': 'usd',
+            'quantity': 1,
+        }],
+        success_url= 'http://localhost:8000/payment/success?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url='https://quick-tutor-tf.herokuapp.com/',
+    )
+    return render(request, 'payment.html')
+
+def success(request):
+    return render(request, 'success.html')
 
 def Logout(request):
     logout(request)

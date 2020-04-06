@@ -15,4 +15,6 @@ urlpatterns = [
     path('<str:pal_username>/', views.CorLog, name='log'),
     url(r'^givehelp', views.GiveHelp),
     url(r'^filloutsheet',views.filloutform),
+    path('payment', views.payment, name='payment'),
+    path('payment/success', views.success, name='success')
 ]

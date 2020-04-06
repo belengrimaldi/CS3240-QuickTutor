@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'stat\about.css' %}">
+<div class="container">
+
+    <div class="row justify-content-center tl">
+        <h1>Payment with Stripe</h1>
+    </div>
+
+    <hr/>
+
+    <div class="row justify-content-center content">
+        <div class="col-md-10">
+            <p class="text-justify">Click the button below to pay with stripe.   </p>
+        </div>
+            <br style="line-height:6;">
+            <button onclick="myFunction()">Pay Now</button>
+            <script>
+                var stripe = Stripe('pk_test_PMhKoDf0gZ0hMRgyTd7sPF5K00Q3iHKYbe');
+                function myFunction() {
+                    stripe.redirectToCheckout({
+                        // Make the id field from the Checkout Session creation API response
+                        // available to this file, so you can provide it as parameter here
+                        // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+                        sessionId: '{{CHECKOUT_SESSION_ID}}'
+                    }).then(function (result) {
+                        // If `redirectToCheckout` fails due to a browser or network
+                        // error, display the localized error message to your customer
+                        // using `result.error.message`.
+                    });
+                }
+            </script>
+            <br style="line-height:6;">
+        </div>        
+    </div>
+
+</div>
+{% endblock %}
+
+<script src="https://js.stripe.com/v3/"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

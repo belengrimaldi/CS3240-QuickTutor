@@ -17,5 +17,4 @@ urlpatterns = [
     path('<int:form_id>/givehelp/accept/', views.AcceptTutee, name='accepttutee'),
     path('<int:form_id>/givehelp/reject/', views.RejectTutee, name='rejecttutee'),
     url(r'^givehelp', views.GiveHelp),
-    path('<str:pal_username>/gethelp/', views.PayView.as_view(), name='payment'), # stripe
 ]

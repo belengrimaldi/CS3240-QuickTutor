@@ -51,6 +51,7 @@ def filloutform(request):
 
 @login_required
 def GetHelp(request):
+    key = settings.STRIPE_PUBLISHABLE_KEY
     #awaiting = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = True)
     awaiting = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = True)
     accepted = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = False).filter(has_tutor_accepted=True)
@@ -62,17 +63,18 @@ def GetHelp(request):
         'awaiting':awaiting,
         'accepted':accepted,
         'rejected':rejected,
+        'key':key,
     }
     return render(request, 'gethelp.html', context)
 
 # Stripe class
-class PayView(TemplateView):
-    template_name = 'gethelp.html'
+# class PayView(TemplateView):
+#     template_name = 'gethelp.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['key'] = settings.STRIPE_PUBLISHABLE_KEY
-        return context
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['key'] = settings.STRIPE_PUBLISHABLE_KEY
+#         return context
 
 
 @login_required

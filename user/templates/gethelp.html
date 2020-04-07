@@ -88,7 +88,12 @@
                         <p class="card-text">{{ fillout.receiver.first_name}} {{ fillout.receiver.last_name }} has
                             accepted your request</p>
                         <p>Class: {{fillout.class_desc}}</p>
-                        <a href="" class="btn btn-secondary" role="button">Pay & Message Tutor</a>
+                        <script src="https://checkout.stripe.com/checkout.js" href="{% url 'payment' fillout.receiver.username %}" class="stripe-button"
+                                data-key="{{ key }}"
+                                data-description="A Django charge"
+                                data-amount="2000"
+                                data-locale="auto">
+                        </script>
                     </li>
 
                     {% endfor %}

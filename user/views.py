@@ -9,10 +9,12 @@ from django.db import transaction
 from .models import Profile, Fill_Out_Sheet, Message
 from .forms import UserForm, ProfileUpdateForm, FillOutSheetForm, MessageForm, ChatForm
 from django.contrib import messages
-
+from django.conf import settings
+import stripe
 
 # Create your views here
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @login_required
 def Home(request):
@@ -50,6 +52,7 @@ def filloutform(request):
 
 @login_required
 def GetHelp(request):
+    key = settings.STRIPE_PUBLISHABLE_KEY
     #awaiting = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = True)
     awaiting = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = True)
     accepted = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = False).filter(has_tutor_accepted=True)
@@ -61,8 +64,30 @@ def GetHelp(request):
         'awaiting':awaiting,
         'accepted':accepted,
         'rejected':rejected,
+        'key':key,
     }
     return render(request, 'gethelp.html', context)
+
+# Stripe class
+# class PayView(TemplateView):
+#     template_name = 'gethelp.html'
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['key'] = settings.STRIPE_PUBLISHABLE_KEY
+#         return context
+
+
+@login_required
+def charge(request):
+    if request.method == 'POST':
+        charge = stripe.Charge.create(
+            amount=2000,
+            currency='usd',
+            description='A Django Charge',
+            source=request.POST['stripeToken']
+        )
+        return render(request, 'charge.html')
 
 
 @login_required

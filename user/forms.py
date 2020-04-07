@@ -36,6 +36,12 @@ class MessageForm(forms.ModelForm):
             "recipient":"",
             "msg_content":"",
         }
+
+class ChatForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ('msg_content',)
+
         
 class FillOutSheetForm(forms.ModelForm):
     recipient = forms.EmailField(label="",max_length=200)

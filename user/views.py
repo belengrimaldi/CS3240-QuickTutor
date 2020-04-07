@@ -10,10 +10,11 @@ from .models import Profile, Fill_Out_Sheet, Message
 from .forms import UserForm, ProfileUpdateForm, FillOutSheetForm, MessageForm, ChatForm
 from django.contrib import messages
 from django.conf import settings
-from django.views.generic.base import TemplateView
+import stripe
 
 # Create your views here
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @login_required
 def Home(request):
@@ -75,6 +76,18 @@ def GetHelp(request):
 #         context = super().get_context_data(**kwargs)
 #         context['key'] = settings.STRIPE_PUBLISHABLE_KEY
 #         return context
+
+
+@login_required
+def charge(request):
+    if request.method == 'POST':
+        charge = stripe.Charge.create(
+            amount=2000,
+            currency='usd',
+            description='A Django Charge',
+            source=request.POST['stripeToken']
+        )
+        return render(request, 'charge.html')
 
 
 @login_required

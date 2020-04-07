@@ -17,4 +17,5 @@ urlpatterns = [
     path('<int:form_id>/givehelp/accept/', views.AcceptTutee, name='accepttutee'),
     path('<int:form_id>/givehelp/reject/', views.RejectTutee, name='rejecttutee'),
     url(r'^givehelp', views.GiveHelp),
+    path('charge/', views.charge, name='charge'),
 ]

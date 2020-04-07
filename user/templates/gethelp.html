@@ -88,11 +88,15 @@
                         <p class="card-text">{{ fillout.receiver.first_name}} {{ fillout.receiver.last_name }} has
                             accepted your request</p>
                         <p>Class: {{fillout.class_desc}}</p>
-                        <script src="https://checkout.stripe.com/checkout.js"
-                            class="stripe-button"
-                            data-key="{{ key }}" data-description="A Django charge" data-amount="2000"
+                        <form action="{% url 'charge' %}" method="post">
+                        {% csrf_token %}
+                        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="{{ key }}"
+                            data-description="A Django Charge"
+                            data-amount="2000"
                             data-locale="auto">
-                            </script>
+                        </script>
+                        </form>
                     </li>
 
                     {% endfor %}

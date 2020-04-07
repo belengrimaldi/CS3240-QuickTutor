@@ -30,8 +30,8 @@
                         </p>
                     </p>
                     <form method="post" nonvalidate> 
-                        <a href="givehelp.html" class="btn btn-secondary">Accept tutee</a>
-                        <a href="givehelp.html" class="btn btn-secondary">Remove tutee</a>
+                        <a href="{% url 'accepttutee' tutor.id %}" class="btn btn-secondary">Accept tutee</a>
+                        <a href="{% url 'rejecttutee' tutor.id %}" class="btn btn-secondary">Remove tutee</a>
                     </form>    
                 </div>
             </div>

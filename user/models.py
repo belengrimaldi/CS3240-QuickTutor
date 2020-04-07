@@ -42,10 +42,10 @@ class Message(models.Model):
     created_at = models.TimeField(default=timezone.now)
 
 
-
 class Fill_Out_Sheet(models.Model):
     has_tutor_accepted = models.BooleanField(default=False)
-    has_tutor_rejected = models.BooleanField(default=True)
+    has_tutor_rejected = models.BooleanField(default=False)
+    no_response = models.BooleanField(default=True)
     sender = models.ForeignKey(User, related_name="Sender", on_delete=models.CASCADE)
     receiver = models.ForeignKey(User, related_name="Receiver", on_delete=models.CASCADE) 
     class_desc = models.CharField(max_length=30, blank=True)

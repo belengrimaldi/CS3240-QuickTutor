@@ -9,18 +9,22 @@ from django.db import transaction
 from .models import Profile, Fill_Out_Sheet, Message
 from .forms import UserForm, ProfileUpdateForm, FillOutSheetForm, MessageForm, ChatForm
 from django.contrib import messages
+<<<<<<< HEAD
 import stripe
 
+=======
+from django.conf import settings
+import stripe
+>>>>>>> 91bc0bcbdee5411f2d7ca57a84a2e7057c71d87b
 
 # Create your views here
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @login_required
 def Home(request):
     available_tutors = Profile.objects.filter(active_tutor=True)
     template = loader.get_template('home.html')
-    accepted_appoint = Fill_Out_Sheet.objects.filter(sender = request.user).filter(has_tutor_accepted=True)
-    rejected_appoint = Fill_Out_Sheet.objects.filter(sender = request.user).filter(has_tutor_rejected=True)
     return render(request, 'home.html')
 
 
@@ -32,6 +36,9 @@ def filloutform(request):
                 email=form.cleaned_data['recipient'])
             
             formContent = Fill_Out_Sheet(
+                has_tutor_accepted = False,
+                has_tutor_rejected = False,
+                no_response = True,
                 sender=request.user,
                 receiver=receiver_ob,
                 class_desc=form.cleaned_data['class_desc'],
@@ -50,12 +57,42 @@ def filloutform(request):
 
 @login_required
 def GetHelp(request):
-    available_tutors = Profile.objects.filter(active_tutor=True)[:10]
+    key = settings.STRIPE_PUBLISHABLE_KEY
+    #awaiting = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = True)
+    awaiting = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = True)
+    accepted = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = False).filter(has_tutor_accepted=True)
+    rejected = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = False).filter(has_tutor_rejected=True)
+    available_tutors = Profile.objects.filter(active_tutor=True)
     template = loader.get_template('gethelp.html')
     context = {
         'available_tutors': available_tutors,
+        'awaiting':awaiting,
+        'accepted':accepted,
+        'rejected':rejected,
+        'key':key,
     }
     return render(request, 'gethelp.html', context)
+
+# Stripe class
+# class PayView(TemplateView):
+#     template_name = 'gethelp.html'
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['key'] = settings.STRIPE_PUBLISHABLE_KEY
+#         return context
+
+
+@login_required
+def charge(request):
+    if request.method == 'POST':
+        charge = stripe.Charge.create(
+            amount=2000,
+            currency='usd',
+            description='A Django Charge',
+            source=request.POST['stripeToken']
+        )
+        return render(request, 'charge.html')
 
 
 @login_required
@@ -150,7 +187,28 @@ def GiveHelp(request):
     received = Fill_Out_Sheet.objects.filter(receiver=request.user)
     context = {'received':received,}
     return render(request, 'givehelp.html', context)
-        
+
+@login_required
+def AcceptTutee(request, form_id):
+    sheet = Fill_Out_Sheet.objects.get(pk = form_id)
+    sheet.no_response = False
+    sheet.has_tutor_accepted = True
+    sheet.has_tutor_rejected = False
+    sheet.save()
+    context = {'sheet':sheet,}
+    return render(request, 'givehelp.html', context)
+
+@login_required
+def RejectTutee(request, form_id):
+    sheet = Fill_Out_Sheet.objects.get(pk = form_id)
+    sheet.no_response = False
+    sheet.has_tutor_rejected = True
+    sheet.has_tutor_accepted = False
+    sheet.save()
+    context = {'sheet':sheet,}
+    return render(request, 'givehelp.html', context)
+
+
 
 # @login_required
 # def Tutee(request):

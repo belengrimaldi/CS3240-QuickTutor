@@ -83,13 +83,25 @@ WSGI_APPLICATION = 'quicktutor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'Htsrtna96!',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -172,5 +184,8 @@ MEDIA_URL = '/media/'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='354861153936-10lli7qhi9h8o60vlhu6rsp8rdqa8cpl.apps.googleusercontent.com'  #Paste CLient Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '-niiEgaceqgsoQtoyIF_t2WD' #Paste Secret Key
+
+STRIPE_SECRET_KEY = 'sk_test_uh4tWUGCpsFkqaLQapevd4Ta00NPEfWtLB'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_AKjFKg2ILKViuxoI9nkoLn34000W1zYBG9'
 
 django_heroku.settings(locals())

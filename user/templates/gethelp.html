@@ -1,3 +1,4 @@
+<!-- https://www.youtube.com/watch?v=vU0VeFN-abU&list=PLLRM7ROnmA9EGO3TOlWLgrc46EhTgj1Ih&index=5 Link to tutorial for filtering -->
 {% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
@@ -22,18 +23,22 @@
                 <h3>Filter Tutors</h3>
                     <form method="GET" action="./gethelp">
                         <div class="form-row justify-content-center">
-                            <div class="form-group col-10">
+                            <div class="form-group col-4">
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" type="search" name="classes_taken" placeholder="Classes taken..." />
-                                    <span class="input-group-append">
-                                        <div class="input-group-text bg-transparent">
-                                            <i class="fa fa-search"></i>
-                                        </div>
-                                    </span>
+                                    <input class="form-control py-2 border" type="search" name="classes_taken" placeholder="Classes taken" />
                                 </div>
-                            </div>        
+                            </div>
+                            
+                            <div class="form-group col-4">
+                                <div class="input-group">
+                                    <input class="form-control py-2  border" type="search" name="year" placeholder="Graduation year" />
+                                </div>
+                            </div>     
+                            <div class="form-group col-2">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary" href="{% url 'gethelp' %}">Search</button>
+                        
                     </form>
 
                 {% if available_tutors %}

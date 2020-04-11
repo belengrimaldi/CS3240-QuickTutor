@@ -61,9 +61,13 @@ def GetHelp(request):
     template = loader.get_template('gethelp.html')
     
     classes_taken_query = request.GET.get('classes_taken')
+    year_query = request.GET.get('year')
+
     if classes_taken_query != '' and classes_taken_query is not None:
         available_tutors = available_tutors.filter(classes_taken__icontains=classes_taken_query)
-        print(available_tutors)
+    
+    if year_query != '' and year_query is not None:
+        available_tutors = available_tutors.filter(year__icontains=year_query)
 
     context = {
         'available_tutors': available_tutors,

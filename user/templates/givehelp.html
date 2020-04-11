@@ -4,14 +4,33 @@
 {% block content %}
 
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'user\gethelp.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'user\givehelp.css' %}">
 </head>
 
 <body>
     <div class="row justify-content-center">
         <h1 class="ttl">Tutee Requests</h1>
     </div>
-   
+    {% ifequal tut.active_tutor False %}
+        <div class="row justify-content-center">
+            <small>Set yourself as an active tutor first!</small>
+        </div>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row flex-row justify-content-center">
+                    <fieldset class="form-group col-2 checkbox">
+                        {{ at_form|crispy }}
+                    </fieldset>
+                </div>
+                <div class="row flex-row justify-content-center">
+                    <div class="form-group col-2">
+                        <button class="btn btn-primary" type="submit">Go live!</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    {% else %}
     <div class="row">
         {% for tutor in received %}
         <div class="col-sm-4">
@@ -39,7 +58,7 @@
         {% endfor %}
     </div>
 
-
+    {% endifequal %}
 
 
 

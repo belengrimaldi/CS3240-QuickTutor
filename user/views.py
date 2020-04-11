@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader
 from django.db import transaction
 from .models import Profile, Fill_Out_Sheet, Message
-from .forms import UserForm, ProfileUpdateForm, FillOutSheetForm, MessageForm, ChatForm
+from .forms import UserForm, ProfileUpdateForm, FillOutSheetForm, MessageForm, ChatForm, ActiveTutorForm
 from django.contrib import messages
 from django.conf import settings
 import stripe
@@ -179,8 +179,18 @@ def SeeProfile(request):
 
 @login_required
 def GiveHelp(request):
+    if request.method == 'POST':
+        at_form = ActiveTutorForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if at_form.is_valid():
+            at_form.save()
+            return redirect('givehelp.html')
+    else:
+        at_form = ActiveTutorForm(instance=request.user)
+    tut = request.user.profile
     received = Fill_Out_Sheet.objects.filter(receiver=request.user)
-    context = {'received':received,}
+    context = {'received':received,'at_form': at_form, 'tut':tut}
     return render(request, 'givehelp.html', context)
 
 @login_required

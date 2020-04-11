@@ -18,7 +18,6 @@
 
         <div class="row">
             <div class="col-md-6">
-                {% if available_tutors %}
                 <h1 class="display-4">Available Tutors</h1>
                 <h3>Filter Tutors</h3>
                     <form method="GET" action="./gethelp">
@@ -36,6 +35,10 @@
                         </div>
                         <button type="submit" class="btn btn-primary" href="{% url 'gethelp' %}">Search</button>
                     </form>
+
+                {% if available_tutors %}
+                
+                
                 {% for tutor in available_tutors %}
                 <div class="list-group">
                     <div class="row justify-content-center">

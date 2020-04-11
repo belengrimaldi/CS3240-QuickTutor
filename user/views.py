@@ -59,6 +59,12 @@ def GetHelp(request):
     rejected = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = False).filter(has_tutor_rejected=True)
     available_tutors = Profile.objects.filter(active_tutor=True)
     template = loader.get_template('gethelp.html')
+    
+    classes_taken_query = request.GET.get('classes_taken')
+    if classes_taken_query != '' and classes_taken_query is not None:
+        available_tutors = available_tutors.filter(classes_taken__icontains=classes_taken_query)
+        print(available_tutors)
+
     context = {
         'available_tutors': available_tutors,
         'awaiting':awaiting,
@@ -66,10 +72,6 @@ def GetHelp(request):
         'rejected':rejected,
         'key':key,
     }
-
-    classes_taken_query = request.GET.get('classes_taken')
-    if classes_taken_query != '' and classes_taken_query is not None:
-        available_tutors = available_tutors.filter(classes_taken__icontains=classes_taken_query)
 
     return render(request, 'gethelp.html', context)
 

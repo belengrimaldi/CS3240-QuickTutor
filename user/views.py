@@ -66,6 +66,11 @@ def GetHelp(request):
         'rejected':rejected,
         'key':key,
     }
+
+    classes_taken_query = request.GET.get('classes_taken')
+    if classes_taken_query != '' and classes_taken_query is not None:
+        available_tutors = available_tutors.filter(classes_taken__icontains=classes_taken_query)
+
     return render(request, 'gethelp.html', context)
 
 # Stripe class

@@ -1,3 +1,4 @@
+<!-- https://www.youtube.com/watch?v=vU0VeFN-abU&list=PLLRM7ROnmA9EGO3TOlWLgrc46EhTgj1Ih&index=5 Link to tutorial for filtering -->
 {% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
@@ -18,8 +19,31 @@
 
         <div class="row">
             <div class="col-md-6">
-                {% if available_tutors %}
                 <h1 class="display-4">Available Tutors</h1>
+                <h3>Filter Tutors</h3>
+                    <form method="GET" action="./gethelp">
+                        <div class="form-row justify-content-center">
+                            <div class="form-group col-4">
+                                <div class="input-group">
+                                    <input class="form-control py-2 border" type="search" name="classes_taken" placeholder="Classes taken" />
+                                </div>
+                            </div>
+                            
+                            <div class="form-group col-4">
+                                <div class="input-group">
+                                    <input class="form-control py-2  border" type="search" name="year" placeholder="Graduation year" />
+                                </div>
+                            </div>     
+                            <div class="form-group col-2">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                        
+                    </form>
+
+                {% if available_tutors %}
+                
+                
                 {% for tutor in available_tutors %}
                 <div class="list-group">
                     <div class="row justify-content-center">
@@ -60,7 +84,6 @@
 
                 {% endfor %}
                 {% else %}
-                <h2>Welcome {{ user.first_name }}! </h2>
                 <h2>Unfortunately, no tutors are available right now.</h2>
                 {% endif %}
 

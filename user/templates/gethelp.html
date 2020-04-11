@@ -51,7 +51,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <a href="/filloutsheet" class="btn btn-secondary" role="button">Submit Request </a>
+                                <a  href="{% url 'fill' tutor.user.username %}" class="btn btn-secondary" role="button">Send A Request </a>
                                 <!-- <a href="/filloutsheet/" data-target="#{{tutor.user}}">Send Request</a> -->
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                 <div class="list-group list-group-flush">
                     {% for fillout in awaiting %}
 
-                    <li class="list-group-item">
+                    <li class="list-group-item request">
                         <p>Awaited Request: </p>
                         <p class="card-text">{{ fillout.receiver.first_name}} {{ fillout.receiver.last_name }} has
                             not responded to your request</p>
@@ -83,7 +83,7 @@
 
                     {% for fillout in accepted %}
 
-                    <li class="list-group-item">
+                    <li class="list-group-item request">
                         <p>Accepted Requests: </p>
                         <p class="card-text">{{ fillout.receiver.first_name}} {{ fillout.receiver.last_name }} has
                             accepted your request</p>
@@ -101,17 +101,6 @@
 
                     {% endfor %}
 
-                    {% for fillout in rejected %}
-
-                    <li class="list-group-item">
-                        <p>Denied Request:</p>
-                        <p class="card-text">{{ fillout.receiver.first_name}} {{ fillout.receiver.last_name }} has
-                            denied your request</p>
-                        <p>Class: {{fillout.class_desc}}</p>
-                        <a href="" class="btn btn-secondary" role="button">Remove</a>
-                    </li>
-
-                    {% endfor %}
                 </div>
 
             </div>

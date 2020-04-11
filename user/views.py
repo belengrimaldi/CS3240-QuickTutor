@@ -22,14 +22,13 @@ def Home(request):
     template = loader.get_template('home.html')
     return render(request, 'home.html')
 
-
-def filloutform(request):
+@login_required
+def filloutform(request, tutor_username):
+    receiver_ob = User.objects.get(username=tutor_username)
     if request.method == 'POST':
         form = FillOutSheetForm(request.POST, instance=request.user)
         if form.is_valid():
-            receiver_ob = User.objects.get(
-                email=form.cleaned_data['recipient'])
-            
+            receiver_ob = User.objects.get(username=tutor_username)
             formContent = Fill_Out_Sheet(
                 has_tutor_accepted = False,
                 has_tutor_rejected = False,
@@ -42,11 +41,11 @@ def filloutform(request):
                 meeting_places=form.cleaned_data['meeting_places']
             )
             formContent.save()
-            return redirect('filloutsheet.html')
+            return render(request, "filloutsheet.html")
     else:
         form = FillOutSheetForm()
 
-    context = {'form': form}
+    context = {'form': form,'receiver_ob':receiver_ob,}
     return render(request, 'filloutsheet.html', context)
 
 
@@ -179,7 +178,7 @@ def SeeProfile(request):
 
 @login_required
 def GiveHelp(request):
-    received = Fill_Out_Sheet.objects.filter(receiver=request.user)
+    received = Fill_Out_Sheet.objects.filter(receiver=request.user).filter(no_response = True)
     context = {'received':received,}
     return render(request, 'givehelp.html', context)
 

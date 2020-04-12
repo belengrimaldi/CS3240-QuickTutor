@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'user\homeMain.css' %}">
 </head>
@@ -18,13 +19,13 @@
 
         <div class="row justify-content-center">
 
-            
+
             <div class="col-md-5">
                 <div class="card">
                     <div class="card-body">
-                      <h5 class="card-title">get tutoring help?</h5>
-                      <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
-                      <a href="/gethelp" class="btn btn-secondary">See list of tutors</a>
+                        <h5 class="card-title">get tutoring help?</h5>
+                        <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
+                        <a href="/gethelp" class="btn btn-secondary">See list of tutors</a>
                     </div>
                 </div>
             </div>
@@ -32,8 +33,8 @@
             <div class="col-md-5">
                 <div class="card">
                     <div class="card-body">
-                      <h5 class="card-title">be a tutor?</h5>
-                      <a href="/givehelp" class="btn btn-secondary">Go live as a tutor!</a>
+                        <h5 class="card-title">be a tutor?</h5>
+                        <a href="/givehelp" class="btn btn-secondary">Go live as a tutor!</a>
                     </div>
                 </div>
             </div>
@@ -94,15 +95,22 @@
 
 
 
-        </div>
+    </div>
 
-        {% endblock %}
+    {% endblock %}
 
-        
 
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 
     </div>
+
 </body>

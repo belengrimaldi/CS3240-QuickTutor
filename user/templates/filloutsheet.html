@@ -11,7 +11,7 @@
 <body>
 
     <div class="text-center">
-        <h1>Please fill out the following form</h1> 
+        <h1>Please fill out the following form</h1>
         <p>Help your tutor understand your needs by giving them some information.</p>
     </div>
     <form method="post" nonvalidate>
@@ -32,13 +32,11 @@
             <div class="form-group col-md-6">
                 <p class="text-left">Please select all places where you would be okay meeting.</p>
                 {{ form.meeting_places|as_crispy_field }}
-                <p class="text-left">Enter tutor's email.</p>
-                {{ form.recipient|as_crispy_field }}
             </div>
         </div>
 
-        <div class = "text-center">
-        <button type="submit" class="btn btn-secondary btn-sm active">Submit</button>
+        <div class="text-center">
+            <button type="submit" href = "confirm.html" class="btn btn-secondary btn-sm active">Submit</button>
         </div>
     </form>
 

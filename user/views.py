@@ -22,14 +22,13 @@ def Home(request):
     template = loader.get_template('home.html')
     return render(request, 'home.html')
 
-
-def filloutform(request):
+@login_required
+def filloutform(request, tutor_username):
+    receiver_ob = User.objects.get(username=tutor_username)
     if request.method == 'POST':
         form = FillOutSheetForm(request.POST, instance=request.user)
         if form.is_valid():
-            receiver_ob = User.objects.get(
-                email=form.cleaned_data['recipient'])
-            
+            receiver_ob = User.objects.get(username=tutor_username)
             formContent = Fill_Out_Sheet(
                 has_tutor_accepted = False,
                 has_tutor_rejected = False,
@@ -42,13 +41,21 @@ def filloutform(request):
                 meeting_places=form.cleaned_data['meeting_places']
             )
             formContent.save()
-            return redirect('filloutsheet.html')
+            return HttpResponseRedirect("/confirm")
+            # return render(request, "home.html")
     else:
         form = FillOutSheetForm()
 
-    context = {'form': form}
+    context = {'form': form,'receiver_ob':receiver_ob,}
     return render(request, 'filloutsheet.html', context)
 
+@login_required
+def confirm(request):
+    return render(request, 'confirm.html')
+
+@login_required
+def confirm_Accept(request):
+    return render(request, '/confirm_Accept')
 
 @login_required
 def GetHelp(request):
@@ -179,7 +186,7 @@ def GiveHelp(request):
     else:
         at_form = ActiveTutorForm(instance=request.user)
     tut = request.user.profile
-    received = Fill_Out_Sheet.objects.filter(receiver=request.user)
+    received = Fill_Out_Sheet.objects.filter(receiver=request.user).filter(no_response = True)
     context = {'received':received,'at_form': at_form, 'tut':tut}
     return render(request, 'givehelp.html', context)
 
@@ -191,7 +198,7 @@ def AcceptTutee(request, form_id):
     sheet.has_tutor_rejected = False
     sheet.save()
     context = {'sheet':sheet,}
-    return render(request, 'givehelp.html', context)
+    return render(request, 'confirm_Accept.html', context)
 
 @login_required
 def RejectTutee(request, form_id):
@@ -202,13 +209,6 @@ def RejectTutee(request, form_id):
     sheet.save()
     context = {'sheet':sheet,}
     return render(request, 'givehelp.html', context)
-
-
-
-# @login_required
-# def Tutee(request):
-#     return render(request, 'tutee.html')
-
 
 @login_required
 def Prof(request):
@@ -231,30 +231,6 @@ def Prof(request):
         'p_form': p_form
     }
     return render(request, 'update_profile.html', context)
-
-
-"""
-@login_required
-@transaction.atomic
-def update_profile(request):
-    if request.method == 'POST':
-        user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            return HttpResponseRedirect('/')
-        else:
-            messages.error(request, _('Please correct the error below.'))
-    else:
-        user_form = UserForm(instance=request.user)
-        profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'home/update_profile.html', {
-        'user_form': user_form,
-        'profile_form': profile_form
-    })
-"""
-
 
 def Logout(request):
     logout(request)

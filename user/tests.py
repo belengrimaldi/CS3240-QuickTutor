@@ -2,7 +2,9 @@ from django.test import TestCase, Client
 from django.db import models
 
 from django.contrib.auth.models import User
-from .models import Profile, Message
+from .models import Profile, Fill_Out_Sheet, Message
+from django.conf import settings
+import stripe
 
 class UserTestCase(TestCase):
       def test_stupid(self):
@@ -58,3 +60,53 @@ class MessageTestCase(TestCase):
          self.assertNotEquals(re_msg.sender, None)
 
 
+class requestTestCase(TestCase):
+    def setUp(self):
+        User.objects.create(email='row@row.com', first_name = 'Rowan', last_name = 'Dakota', username='row')
+        User.objects.create(email='foo@foo.com', first_name = 'Foo', last_name = 'Bar', username='foo')
+        User.objects.create(email='poo@poo.com', first_name = 'Poo', last_name = 'Poo', username='poo')
+
+    def test_Request(self):
+        foo = User.objects.get(email='foo@foo.com')
+        row = User.objects.get(email='row@row.com')
+        poo = User.objects.get(email='poo@poo.com')
+
+        sheet = Fill_Out_Sheet
+        sheet.sender = foo
+        sheet.receiver = row 
+        class_desc = 'Class 1'
+        help_desc = 'Exam 1'
+        sheet.no_response = False
+        sheet.has_tutor_accepted = True
+        sheet.has_tutor_rejected = False    
+
+        self.assertEquals(sheet.sender, foo)
+        self.assertEquals(sheet.receiver, row)
+        self.assertNotEquals(sheet.has_tutor_accepted, False)
+        self.assertNotEquals(sheet.has_tutor_rejected, True)
+
+class paymentTestCase(TestCase):
+    def test_Payment(self):
+        #Test 1 (Attempts to make a sample "charge" call to Stripe API)
+        chargeSuccess = None
+
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        try:
+            charge = stripe.Charge.create(
+                amount=2000,
+                currency='usd',
+                description='A Django Test Charge',
+                source="tok_visa",
+            )
+            chargeSuccess = True;
+        except:
+            chargeSuccess = False;
+        
+        self.assertEquals(chargeSuccess, True)
+
+        #Test 2 (Attempts to "capture the request - should throw exception")
+        try:
+            stripe.Charge.capture(charge.id)
+            self.fail("No error was thrown (when it should have)")
+        except:
+            pass #passes if error is thrown

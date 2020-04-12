@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'quicktutor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
+        'NAME': 'poops_mc_dogle',
         'USER': 'postgres',
         'PASSWORD': 'Htsrtna96!',
         'HOST': 'localhost',

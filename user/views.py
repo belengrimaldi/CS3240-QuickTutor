@@ -41,13 +41,17 @@ def filloutform(request, tutor_username):
                 meeting_places=form.cleaned_data['meeting_places']
             )
             formContent.save()
-            return render(request, "filloutsheet.html")
+            return HttpResponseRedirect("/confirm")
+            # return render(request, "home.html")
     else:
         form = FillOutSheetForm()
 
     context = {'form': form,'receiver_ob':receiver_ob,}
     return render(request, 'filloutsheet.html', context)
 
+@login_required
+def confirm(request):
+    return render(request, 'confirm.html')
 
 @login_required
 def GetHelp(request):

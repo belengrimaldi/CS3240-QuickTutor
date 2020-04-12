@@ -72,7 +72,7 @@
                 <div class="list-group list-group-flush">
                     {% for fillout in awaiting %}
 
-                    <li class="list-group-item request">
+                    <li class="list-group-item">
                         <p>Awaited Request: </p>
                         <p class="card-text">{{ fillout.receiver.first_name}} {{ fillout.receiver.last_name }} has
                             not responded to your request</p>
@@ -83,7 +83,7 @@
 
                     {% for fillout in accepted %}
 
-                    <li class="list-group-item request">
+                    <li class="list-group-item">
                         <p>Accepted Requests: </p>
                         <p class="card-text">{{ fillout.receiver.first_name}} {{ fillout.receiver.last_name }} has
                             accepted your request</p>
@@ -101,6 +101,17 @@
 
                     {% endfor %}
 
+                    {% for fillout in rejected %}
+
+                    <li class="list-group-item">
+                        <p>Denied Request:</p>
+                        <p class="card-text">{{ fillout.receiver.first_name}} {{ fillout.receiver.last_name }} has
+                            denied your request</p>
+                        <p>Class: {{fillout.class_desc}}</p>
+                        <a href="" class="btn btn-secondary" role="button">Remove</a>
+                    </li>
+
+                    {% endfor %}
                 </div>
 
             </div>

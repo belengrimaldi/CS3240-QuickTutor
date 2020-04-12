@@ -1,9 +1,9 @@
 language: python
 python:
 - '3.6'
-- '3.8'
+cache: pip
 install:
-- pip install -r requirements-travis.txt
+- pip install -r requirements.txt
 script:
 - python manage.py test
 services:
@@ -13,7 +13,7 @@ before_script:
 deploy:
   provider: heroku 
   api_key:
-    secure: JNm6cI0KvCrQRJ7ZXE89zcPNZ8y8dsqeYEJMY19sbiZsi+le7TOD1U3R4TqmVnuNnsaDMFjosnyLQFbk6FPuRRkGMceeM2W61eNx+ArjsaLZRdGvQ5kCRrR6BTFDLywHRD66UoU/gW+JWQr5nBqhTXVTAxgdQSbtWLhHXth4194BxTrviBTEUfJ1UDK6ebgXYYhMhIMhTligbWf87RWUiPcDmq5nKHJ9wnhLnm9sPucIo4MCp9t3m+dBi5ORaK5l2OzLkQ0JjlL1cDiwILOIW7DOBx5mh8h4/Hbwc3CAzdef36s8F80ntnbBEucIIXHAE45EzlfFMYIpHP3vooBbqTUzM5Xtwcderca8OIP5phsJ9razg6hUzaCdZRm/u1UNmBIOp0LjOesVSv4Z9hI3pg1jntww5UzrzX4RbUQHnRYGARPfdf49JjEz+CWJMJ6j2vD2SBXJDzqFS+pKC3zk/PZVjcs62+PlR/QnP7Jd0nbhNV61K4G+6W19xOiUANx+00qFE9uSGPQGpXisj3wlReKbiYhCgOSsvKVZCrWAserIAz67UjbaQsmfCMAng5cRcCfQQXUebuESLpFdQ6peG4dDZiVivQz++L3fwhy7WCc90/iJdc2ZmGtfb+9Ucnkkn2bIGmoORwqxwXKOyG5IGYL4/d4YAthWESeWfLAHMFE=
+    secure: afJj6KcG/jjj5gI+H8JW+d5ZeKKaWRoCMEsA5fAqWF7gS9q42eUUYzfyX5+Nhau5iUpg8CCO9CpDKSjbn1ahg+MRwrp5Zx2gGA6fYwTlD5uvEuw7Ts0VIenoSx9avF61eISUbXAbOmZgt8ZJhKNlmYz3C4ew14gAAlT8MxVh0MIY5qCGvGFqi+LqzjH2AdrsVL6fhcAppTj2dNKiKC1rJdWOJ7KN6i5I0R0513IShYM9Cpm2YNYoSk1E0f0JLMuwYYMniMpXZNiWdWFW9LKeqjD/IzNTqLYrkg6O8yIavRnOVZPYSKKjcMHis+wphx0l0230VZ9d8im8Dq3GCv+K76RJX/U/4kfoZOoRSP79IL9354GQaZs+oZY8K1bqz4XPPxViuCZXX+K2oQet3LGxMMAIWDVrSek96xHI+yHzGI7ZJFUKzS4znNb5NyxN32N34l3OWDcq72+Nv+G1eBByeNbilULLA9bCsF8rwywBPzpvRanZ3dotkv4taxmTvKvCVDA+nUhLyem0xUxmlDJIMTA0Hk5vDwdt/nx5aYti0erDd6TXAkDBOicsyLPNk3ruvckoEzkhYMsSVNvaJ5VZor3jcHluPCe30EOIXExWNgUxmr2DwhbmVgoC+ulHaBQvVS9H0G46Ss8HN7RtPNkCuHubrnJ68LQDhW5SrmpWLWY=
   app: quick-tutor-tf
   true:
     repo: uva-cs3240-s20/project-101-team-falcon

@@ -21,3 +21,25 @@
 .list-group-item:hover {
     color: white;
 }
+
+.btn-primary {
+    background-color: #3d6c7f;
+    border-color: #3d6c7f;
+}
+
+.btn-primary:hover {
+    background-color: #3d6c7f;
+    border-color: #3d6c7f;
+}
+
+.form-group {
+    margin-bottom: 0;
+}
+
+.checkbox {
+    margin: 1rem auto;
+}
+
+small {
+    font-size: medium;
+}

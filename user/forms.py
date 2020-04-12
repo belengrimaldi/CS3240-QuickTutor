@@ -19,13 +19,13 @@ MEETING_PLACES = (
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email')
+        fields = ('first_name', 'last_name')
 
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('bio', 'location', 'year', 'classes_taken', 'help_needed', 'image', 'active_tutor')
+        fields = ('active_tutor', 'bio', 'location', 'year', 'classes_taken', 'help_needed', 'image')
 
 class MessageForm(forms.ModelForm):
     recipient = forms.EmailField(label="Recipient's email", max_length=200)
@@ -60,3 +60,8 @@ class FillOutSheetForm(forms.ModelForm):
             "meeting_places":"",
             "recipient":"",
         }
+
+class ActiveTutorForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('active_tutor',)

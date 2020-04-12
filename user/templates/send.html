@@ -8,78 +8,20 @@
 
 <body>
 	<div class="container">
-		<div class="row justify-content-center">
-
-			<div class="col-md-6">
-				<div class="form-group">
-					<div class="text-center">
-						<h1 class="title" style="margin-bottom: 1rem;">Inbox</h1>
-						<p style="font-size: small;">Click to see messages between you and another user</p>
-						{% if pen_pals %}
-							{% for pal in pen_pals %}
-							<div class="list-group"> 
-								<div class="row justify-content-center">
-									<a href="{% url 'log' pal.username %}" class="list-group-item listItem" >{{pal.first_name}} {{pal.last_name}}</a> 
-								</div>
-							</div>
-			
-							<!-- <li  class="text-center"><a href="{% url 'log' pal.username %}">{{ pal.username }}</a></li> -->
-							{% endfor %}
-						{% else %}
-							<p>No messages yet</p>
-						{% endif %}
+		<div class="text-center">
+			<h1 class="title" style="margin-bottom: 1rem;">Inbox</h1>
+			<p style="font-size: small;">Click to see messages between you and another user</p>
+			{% if pen_pals %}
+				{% for pal in pen_pals %}
+					<div class="list-group">
+						<div class="row justify-content-center">
+							<a href="{% url 'log' pal.username %}" class="list-group-item listItem" >{{pal.first_name}} {{pal.last_name}}</a>
+						</div>
 					</div>
-				</div>
-
-			</div>
-
-			<div class="col-md-6">
-
-				{% if messages %}
-					{% for message in messages %}
-						{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-						<ul class="bg-success">
-							<div class="text-center">
-								<p {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
-							</div>
-						</ul>
-						{% endif %}
-						{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-						<ul class="bg-warning">
-							<div class="text-center">
-								<p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-							</div>
-						</ul>
-						{% endif %}
-					{% endfor %}
-				{% endif %}
-
-				<div class="form-group">
-					<div class="text-center">
-						<h1 class="title">New Message</h1>
-						<form method="POST" class="message-form" novalidate>{% csrf_token %}
-							<!-- {{ form.as_p}} -->
-							{{ form.non_field_errors }}
-							<div class="fieldWrapper form-group row justify-content-center">
-								{{ form.recipient.error }}
-								{{ form.recipient|as_crispy_field }}
-							</div>
-							<div class="fieldWrapper form-group row justify-content-center message">
-								{{ form.msg_content.errors }}
-								<label for="{{ form.msg_content.id_for_label }}">Message:</label>
-							</div>
-							<div class="fieldWrapper form-group row justify-content-center">
-								<div class="col-md-12">
-									{{ form.msg_content|as_crispy_field }}
-								</div>
-							</div>
-							<button type="submit" class="save btn btn-secondary">Send</button>
-						</form>
-					</div>
-				</div>
-
-			</div>
-			
+				{% endfor %}
+			{% else %}
+				<p>No messages yet</p>
+			{% endif %}
 		</div>
 	</div>
 </body>

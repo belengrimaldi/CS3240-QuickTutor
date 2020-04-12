@@ -103,26 +103,6 @@ def charge(request):
 
 @login_required
 def Messaging(request):
-#   Makes the message box (the box with which to send messages)
-    if request.method == "POST":
-        form = MessageForm(request.POST, instance=request.user)
-        if form.is_valid():
-            try:
-                receiver_ob = User.objects.get(email=form.cleaned_data['recipient'])
-            except User.DoesNotExist:
-                messages.error(request, f'The specified recipient does not exist')
-                return redirect('send.html')
-            msg = Message(
-                sender = request.user,
-                receiver = receiver_ob,
-                msg_content = form.cleaned_data['msg_content'],
-            )
-            msg.save()
-            messages.success(request, f'Your message has been sent!')
-            return redirect('send.html')
-    else:
-        form = MessageForm()
-
 #   Makes the list of people who you've messaged or who have messaged you
     received = Message.objects.filter(receiver=request.user)
     sent = Message.objects.filter(sender=request.user)
@@ -136,7 +116,6 @@ def Messaging(request):
 
 
     context = {
-        'form': form,
         'pen_pals': pen_pals,
     }
 

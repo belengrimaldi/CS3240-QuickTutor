@@ -7,7 +7,7 @@ from django.conf import settings
 import stripe
 
 class UserTestCase(TestCase):
-      def test_stupid(self):
+    def test_stupid(self):
           self.assertEqual(1,1)
     def setUp(self):
         User.objects.create(email='example@example.com', first_name = 'Emma', last_name = 'Studtmann')

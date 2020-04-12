@@ -44,7 +44,6 @@ class ChatForm(forms.ModelForm):
 
         
 class FillOutSheetForm(forms.ModelForm):
-    recipient = forms.EmailField(label="",max_length=200)
     meeting_places = forms.MultipleChoiceField(
         required=True,
         widget = forms.CheckboxSelectMultiple,
@@ -52,13 +51,12 @@ class FillOutSheetForm(forms.ModelForm):
     )
     class Meta:
         model = Fill_Out_Sheet
-        fields = ('recipient','class_desc','help_desc','time_slot','meeting_places')
+        fields = ('class_desc','help_desc','time_slot','meeting_places')
         labels = {
             "class_desc":"",
             "help_desc":"",
             "time_slot":"",
             "meeting_places":"",
-            "recipient":"",
         }
 
 class ActiveTutorForm(forms.ModelForm):

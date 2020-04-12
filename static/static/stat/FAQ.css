@@ -2,10 +2,31 @@
     margin-top: 1.5rem;
 }
 
+h1 {
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
 .content {
     margin-top: 1rem;
 }
 
 hr {
     border-top: 3px solid #3d6c7f;
+}
+
+.linkColor {
+    color: black;
+}
+
+.panel-title {
+    text-align: center;
+    border: 1px black solid;
+    border-radius: 10px;
+}
+
+.panel {
+    margin-top: .5rem; 
+    margin-bottom: .5rem;
 }

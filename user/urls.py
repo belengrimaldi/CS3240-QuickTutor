@@ -8,6 +8,7 @@ from django.urls import path
 urlpatterns = [
     url(r'^$', views.Home),
     url(r'^gethelp', views.GetHelp, name='gethelp'),
+    url(r'^requestsUpdate', views.RequestsUpdate, name='requestsUpdate'),
     path('confirm', views.confirm, name='confirm'),
     path('confirm_Accept', views.confirm_Accept, name='confirm'),
     path('<str:tutor_username>/gethelp/', views.filloutform, name='fill'),

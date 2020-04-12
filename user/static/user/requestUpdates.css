@@ -40,22 +40,12 @@
     color: black;
 }
 
-.lst {
-    border: 1px black solid;
-    height:55%;
-    overflow-y:auto;
-    overflow-x:hidden;
-}
-
 .req {
     border: 1px black solid;
-    height:55%;
+    height:60%;
     overflow-y:auto;
     overflow-x:hidden;
-}
-
-.upt {
-    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 ::-webkit-scrollbar {

@@ -50,6 +50,24 @@ def filloutform(request, tutor_username):
     return render(request, 'filloutsheet.html', context)
 
 @login_required
+def RequestsUpdate(request):
+    key = settings.STRIPE_PUBLISHABLE_KEY
+    #awaiting = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = True)
+    awaiting = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = True)
+    accepted = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = False).filter(has_tutor_accepted=True)
+    rejected = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = False).filter(has_tutor_rejected=True)
+    template = loader.get_template('requestUpdates.html')
+
+    context = {
+        'awaiting':awaiting,
+        'accepted':accepted,
+        'rejected':rejected,
+        'key':key,
+    }
+
+    return render(request, 'requestUpdates.html', context)
+
+@login_required
 def confirm(request):
     return render(request, 'confirm.html')
 

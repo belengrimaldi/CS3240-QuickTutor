@@ -29,3 +29,12 @@ textarea {
 .list-group-item:hover {
     color: white;
 }
+
+.pens {
+    margin-bottom: .5rem;
+    height:60%;
+    overflow-y:auto;
+    overflow-x:hidden;
+    display: flex;
+    flex-direction: column-reverse;
+}

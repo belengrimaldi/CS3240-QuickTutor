@@ -12,17 +12,18 @@
 <body>
     <div class="container">
         <div class="row justify-content-center title">
-            <h1>Your request has been sent!</h1>
+            <h1>You have accepted the appointment!</h1>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-8 txt">
-                <p>Your tutor will receive a notification about your request. If they accept, it will move from your
-                    pending request to your accepted requests. If they deny it, it will disappear from your list.
+                <p>Your tutee will receive a notification of your acceptance. If the student decides to move
+                    forward with the appointment, you will be paid shortly and most likely receive a message from
+                    the student.
+                </p>
+                <p>If you would like to send a message to {{sheet.sender.first_name}}, you can click on the Messages tab
+                    and use {{sheet.sender.first_name}}'s email: {{sheet.sender.email}}
                 </p>
             </div>
-        </div>
-        <div class="row justify-content-center">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Return to home</button>
         </div>
         {% endblock %}
     </div>

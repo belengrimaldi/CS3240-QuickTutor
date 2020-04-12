@@ -12,6 +12,7 @@
 			<h1 class="title" style="margin-bottom: 1rem;">Inbox</h1>
 			<p style="font-size: small;">Click to see messages between you and another user</p>
 			{% if pen_pals %}
+				<div class="pens">
 				{% for pal in pen_pals %}
 					<div class="list-group">
 						<div class="row justify-content-center">
@@ -19,6 +20,7 @@
 						</div>
 					</div>
 				{% endfor %}
+				</div>
 			{% else %}
 				<p>No messages yet</p>
 			{% endif %}

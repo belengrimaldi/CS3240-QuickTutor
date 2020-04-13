@@ -46,8 +46,8 @@
                         {% endifequal %}
                         <p>Class {{tutor.sender.first_name}} needs help with: {{tutor.class_desc}}</p>
                         <p>Description: {{tutor.help_desc}}</p>
-                        <p>Locations where {{tutor.sender.first_name}} would be okay meeting: {{tutor.meeting_places}}
-                        </p>
+                        <p>Locations where {{tutor.sender.first_name}} would be okay meeting: {{tutor.meeting_places}}</p>
+                        <p>Length of session: {{tutor.get_time_slot_display}}</p>
                     </p>
                     <form method="post" nonvalidate>
                         <div class="row">

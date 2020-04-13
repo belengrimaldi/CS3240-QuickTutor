@@ -25,7 +25,7 @@ class UserForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('active_tutor', 'bio', 'location', 'year', 'classes_taken', 'help_needed', 'image')
+        fields = ('active_tutor', 'bio', 'location', 'year', 'classes_taken', 'help_needed')
 
 class MessageForm(forms.ModelForm):
     recipient = forms.EmailField(label="Recipient's email", max_length=200)

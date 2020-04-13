@@ -42,18 +42,10 @@
 
 .lst {
     border: 1px black solid;
-    height:55%;
+    height:45%;
     overflow-y:auto;
     overflow-x:hidden;
 }
-
-.req {
-    border: 1px black solid;
-    height:55%;
-    overflow-y:auto;
-    overflow-x:hidden;
-}
-
 .upt {
     margin-top: 1rem;
 }

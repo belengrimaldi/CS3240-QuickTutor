@@ -73,7 +73,7 @@ def confirm(request):
 
 @login_required
 def confirm_Accept(request):
-    return render(request, '/confirm_Accept')
+    return render(request, 'confirm.html')
 
 @login_required
 def GetHelp(request):

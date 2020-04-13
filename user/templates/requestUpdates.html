@@ -29,12 +29,42 @@
                             <p>Class: {{fillout.class_desc}}</p>
                             <form action="{% url 'charge' %}" method="post">
                             {% csrf_token %}
+                            
+                            {% if fillout.time_slot == "1" %}
                             <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                data-key="{{ key }}"
-                                data-description="A Django Charge"
-                                data-amount="2000"
-                                data-locale="auto">
+                            data-key="{{ key }}"
+                            data-description="Tutor Payment: 5-15 minutes"
+                            data-amount="500"
+                            data-locale="auto">
                             </script>
+                            {% endif %}
+
+                            {% if fillout.time_slot == "2" %}
+                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="{{ key }}"
+                            data-description="Tutor Payment: 15-30 minutes"
+                            data-amount="1000"
+                            data-locale="auto">
+                            </script>
+                            {% endif %}
+
+                            {% if fillout.time_slot == "3" %}
+                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="{{ key }}"
+                            data-description="Tutor Payment: 30 minutes - 1 hour"
+                            data-amount="2000"
+                            data-locale="auto">
+                            </script>
+                            {% endif %}
+
+                            {% if fillout.time_slot == "4" %}
+                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="{{ key }}"
+                            data-description="Tutor Payment - More than 1 hour"
+                            data-amount="3000"
+                            data-locale="auto">
+                            </script>
+                            {% endif %}
                             </form>
                         </li>
     

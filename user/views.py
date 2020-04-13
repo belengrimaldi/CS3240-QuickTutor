@@ -24,11 +24,20 @@ def Home(request):
 
 @login_required
 def filloutform(request, tutor_username):
-    receiver_ob = User.objects.get(username=tutor_username)
+    try:
+        receiver_ob = User.objects.get(username=tutor_username)
+    except User.DoesNotExist:
+        raise Http404("This user does not exist.")
     if request.method == 'POST':
-        form = FillOutSheetForm(request.POST, instance=request.user)
+        try:
+            form = FillOutSheetForm(request.POST, instance=request.user)
+        except Fill_Out_Sheet.DoesNotExist:
+            raise Http404("Fill Out Sheet does not exist.")
         if form.is_valid():
-            receiver_ob = User.objects.get(username=tutor_username)
+            try:
+                receiver_ob = User.objects.get(username=tutor_username)
+            except:
+                raise Http404("This user does not exist.")
             formContent = Fill_Out_Sheet(
                 has_tutor_accepted = False,
                 has_tutor_rejected = False,
@@ -48,6 +57,15 @@ def filloutform(request, tutor_username):
 
     context = {'form': form,'receiver_ob':receiver_ob,}
     return render(request, 'filloutsheet.html', context)
+@login_required
+def DeleteSheet(request, form_id):
+    sheet = Fill_Out_Sheet.objects.get(id = form_id)
+    if request.method == "GET":
+        sheet.delete()
+    context = {
+        "sheet":sheet
+    }
+    return redirect("/requestsUpdate")
 
 @login_required
 def RequestsUpdate(request):
@@ -74,6 +92,10 @@ def confirm(request):
 @login_required
 def confirm_Accept(request):
     return render(request, '/confirm_Accept')
+
+@login_required
+def confirm_Reject(request):
+    return render(request, '/confirm_Reject')
 
 @login_required
 def GetHelp(request):
@@ -204,13 +226,17 @@ def GiveHelp(request):
     else:
         at_form = ActiveTutorForm(instance=request.user)
     tut = request.user.profile
+
     received = Fill_Out_Sheet.objects.filter(receiver=request.user).filter(no_response = True)
     context = {'received':received,'at_form': at_form, 'tut':tut}
     return render(request, 'givehelp.html', context)
 
 @login_required
 def AcceptTutee(request, form_id):
-    sheet = Fill_Out_Sheet.objects.get(pk = form_id)
+    try:
+        sheet = Fill_Out_Sheet.objects.get(pk = form_id)
+    except Fill_Out_Sheet.DoesNotExist:
+        raise Http404("Fill Out Sheet does not exist.")
     sheet.no_response = False
     sheet.has_tutor_accepted = True
     sheet.has_tutor_rejected = False
@@ -221,12 +247,9 @@ def AcceptTutee(request, form_id):
 @login_required
 def RejectTutee(request, form_id):
     sheet = Fill_Out_Sheet.objects.get(pk = form_id)
-    sheet.no_response = False
-    sheet.has_tutor_rejected = True
-    sheet.has_tutor_accepted = False
-    sheet.save()
+    sheet.delete()
     context = {'sheet':sheet,}
-    return render(request, 'givehelp.html', context)
+    return render(request, 'confirm_Reject.html', context)
 
 @login_required
 def Prof(request):

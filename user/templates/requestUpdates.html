@@ -66,7 +66,11 @@
                             </script>
                             {% endif %}
                             </form>
+                            <a href="{% url 'log' fillout.receiver.username %}" class="btn btn-secondary" role="button">Message Tutor </a>
+                            <a href="{% url 'delete' fillout.id %}" class="btn btn-secondary" type = 'submit' value='Delete'>Delete</a>
                         </li>
+
+                        
     
                         {% endfor %}
 
@@ -79,6 +83,7 @@
                             <p class="card-text">{{ fillout.receiver.first_name}} {{ fillout.receiver.last_name }} has
                                 not responded to your request</p>
                             <p>Class: {{fillout.class_desc}}</p>
+                            <a href="{% url 'delete' fillout.id %}" class="btn btn-secondary" type = 'submit' value='Delete'>Cancel Request</a>
                         </li>
 
                         {% endfor %}

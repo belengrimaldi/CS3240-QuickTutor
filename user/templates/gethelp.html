@@ -68,9 +68,7 @@
                                     <p>Classes I can help with: {{tutor.classes_taken}}</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <a  href="{% url 'fill' tutor.user.username %}" class="btn btn-secondary" role="button">Send A Request </a>
-                                    <!-- <a href="/filloutsheet/" data-target="#{{tutor.user}}">Send Request</a> -->
+                                    <a href="{% url 'fill' tutor.user.username %}" class="btn btn-secondary" role="button">Send A Request</a>
                                     <a href="{% url 'log' tutor.user.username %}" class="btn btn-secondary" role="button">Message Tutor </a>
                                 </div>
                             </div>

@@ -16,32 +16,34 @@ import stripe
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+
 @login_required
 def Home(request):
     available_tutors = Profile.objects.filter(active_tutor=True)
     template = loader.get_template('home.html')
     return render(request, 'home.html')
 
+
 @login_required
 def filloutform(request, tutor_username):
     try:
         receiver_ob = User.objects.get(username=tutor_username)
     except User.DoesNotExist:
-        raise Http404("This user does not exist.")
+        return render(request, '404.html')
     if request.method == 'POST':
         try:
             form = FillOutSheetForm(request.POST, instance=request.user)
         except Fill_Out_Sheet.DoesNotExist:
-            raise Http404("Fill Out Sheet does not exist.")
+            return render(request, '404.html')
         if form.is_valid():
             try:
                 receiver_ob = User.objects.get(username=tutor_username)
-            except:
-                raise Http404("This user does not exist.")
+            except User.DoesNotExist:
+                return render(request, '404.html')
             formContent = Fill_Out_Sheet(
-                has_tutor_accepted = False,
-                has_tutor_rejected = False,
-                no_response = True,
+                has_tutor_accepted=False,
+                has_tutor_rejected=False,
+                no_response=True,
                 sender=request.user,
                 receiver=receiver_ob,
                 class_desc=form.cleaned_data['class_desc'],
@@ -51,15 +53,19 @@ def filloutform(request, tutor_username):
             )
             formContent.save()
             return HttpResponseRedirect("/confirm")
-            # return render(request, "home.html")
     else:
         form = FillOutSheetForm()
 
-    context = {'form': form,'receiver_ob':receiver_ob,}
+    context = {'form': form, 'receiver_ob': receiver_ob, }
     return render(request, 'filloutsheet.html', context)
+
+
 @login_required
 def DeleteSheet(request, form_id):
-    sheet = Fill_Out_Sheet.objects.get(id = form_id)
+    try:
+        sheet = Fill_Out_Sheet.objects.get(id = form_id)
+    except Fill_Out_Sheet.DoesNotExist:
+        return render(request, '404.html')
     if request.method == "GET":
         sheet.delete()
     context = {
@@ -70,7 +76,6 @@ def DeleteSheet(request, form_id):
 @login_required
 def RequestsUpdate(request):
     key = settings.STRIPE_PUBLISHABLE_KEY
-    #awaiting = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = True)
     awaiting = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = True)
     accepted = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = False).filter(has_tutor_accepted=True)
     rejected = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = False).filter(has_tutor_rejected=True)
@@ -91,7 +96,7 @@ def confirm(request):
 
 @login_required
 def confirm_Accept(request):
-    return render(request, 'confirm.html')
+    return render(request, '/confirm_Accept')
 
 @login_required
 def confirm_Reject(request):
@@ -100,7 +105,6 @@ def confirm_Reject(request):
 @login_required
 def GetHelp(request):
     key = settings.STRIPE_PUBLISHABLE_KEY
-    #awaiting = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = True)
     awaiting = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = True)
     accepted = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = False).filter(has_tutor_accepted=True)
     rejected = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = False).filter(has_tutor_rejected=True)
@@ -125,16 +129,6 @@ def GetHelp(request):
     }
 
     return render(request, 'gethelp.html', context)
-
-# Stripe class
-# class PayView(TemplateView):
-#     template_name = 'gethelp.html'
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['key'] = settings.STRIPE_PUBLISHABLE_KEY
-#         return context
-
 
 @login_required
 def charge(request):
@@ -161,7 +155,6 @@ def Messaging(request):
         if msg.receiver not in pen_pals:
             pen_pals.append(msg.receiver)
 
-
     context = {
         'pen_pals': pen_pals,
     }
@@ -171,10 +164,14 @@ def Messaging(request):
 
 @login_required
 def CorLog(request, pal_username):
-    pen_pal = User.objects.get(username=pal_username)
+    try:
+        pen_pal = User.objects.get(username=pal_username)
+    except User.DoesNotExist:
+        return render(request, '404.html')
+    
     coris = []
 
-    #Make send box at bottom of screen
+    # Make send box at bottom of screen
     if request.method == "POST":
         form = ChatForm(request.POST, instance=request.user)
         if form.is_valid():
@@ -186,15 +183,6 @@ def CorLog(request, pal_username):
             msg.save()
 
     form = ChatForm()
-
-    #Make corrispondence list that's displayed
-    # received = Message.objects.filter(receiver=request.user, sender=pen_pal)
-    # sent = Message.objects.filter(receiver=pen_pal, sender=request.user)
-    # for i in received:
-    #     coris.append(i)
-    # for i in sent:
-    #     coris.append(i)
-    # coris.sort(key=(lambda x: x.created_at), reverse=True)
 
     allMsg = Message.objects.filter(receiver=pen_pal, sender=request.user) | Message.objects.filter(receiver=request.user, sender=pen_pal)
     allMsgOrdered = allMsg.order_by('-created_at')
@@ -236,7 +224,7 @@ def AcceptTutee(request, form_id):
     try:
         sheet = Fill_Out_Sheet.objects.get(pk = form_id)
     except Fill_Out_Sheet.DoesNotExist:
-        raise Http404("Fill Out Sheet does not exist.")
+        return render(request, '404.html')
     sheet.no_response = False
     sheet.has_tutor_accepted = True
     sheet.has_tutor_rejected = False
@@ -246,7 +234,10 @@ def AcceptTutee(request, form_id):
 
 @login_required
 def RejectTutee(request, form_id):
-    sheet = Fill_Out_Sheet.objects.get(pk = form_id)
+    try:
+        sheet = Fill_Out_Sheet.objects.get(pk = form_id)
+    except Fill_Out_Sheet.DoesNotExist:
+        return render(request, '404.html')
     sheet.delete()
     context = {'sheet':sheet,}
     return render(request, 'confirm_Reject.html', context)

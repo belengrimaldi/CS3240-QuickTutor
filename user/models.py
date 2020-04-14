@@ -38,7 +38,6 @@ class Message(models.Model):
     sender = models.ForeignKey(User, related_name="sender", on_delete=models.CASCADE)
     receiver = models.ForeignKey(User, related_name="receiver", on_delete=models.CASCADE)
     msg_content = models.TextField(verbose_name='message content', max_length=400, blank=True)
-    # created_at = models.TimeField(auto_now_add=True)
     created_at = models.TimeField(default=timezone.now)
 
 

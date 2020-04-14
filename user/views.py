@@ -173,7 +173,12 @@ def CorLog(request, pal_username):
 
     # Make send box at bottom of screen
     if request.method == "POST":
-        form = ChatForm(request.POST, instance=request.user)
+
+        try:
+            form = ChatForm(request.POST, instance=request.user)
+        except ChatForm.DoesNotExist:
+            return render(request, '404.html')
+       
         if form.is_valid():
             msg = Message(
                 sender = request.user,
@@ -205,14 +210,20 @@ def SeeProfile(request):
 @login_required
 def GiveHelp(request):
     if request.method == 'POST':
-        at_form = ActiveTutorForm(request.POST,
-                                   request.FILES,
-                                   instance=request.user.profile)
+        try:
+            at_form = ActiveTutorForm(request.POST, request.FILES, instance=request.user.profile)
+        except ActiveTutorForm.DoesNotExist: 
+            return render(request, '404.html')
+        
         if at_form.is_valid():
             at_form.save()
             return redirect('givehelp.html')
     else:
-        at_form = ActiveTutorForm(instance=request.user)
+        try:
+            at_form = ActiveTutorForm(instance=request.user)
+        except ActiveTutorForm.DoesNotExist: 
+            return render(request, '404.html')
+        
     tut = request.user.profile
 
     received = Fill_Out_Sheet.objects.filter(receiver=request.user).filter(no_response = True)
@@ -245,18 +256,31 @@ def RejectTutee(request, form_id):
 @login_required
 def Prof(request):
     if request.method == 'POST':
-        u_form = UserForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST,
-                                   request.FILES,
-                                   instance=request.user.profile)
+        try:
+            u_form = UserForm(request.POST, instance=request.user)
+        except UserForm.DoesNotExist:
+            return render(request, '404.html')
+       
+        try:
+             p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        except ProfileUpdateForm.DoesNotExist:
+            return render(request, '404.html')
+       
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
             messages.success(request, f'Your account has been updated!')
             return redirect('update_profile.html')
     else:
-        u_form = UserForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile)
+        try:
+            u_form = UserForm(instance=request.user)
+        except UserForm.DoesNotExist:
+            return render(request, '404.html')
+       
+        try:
+            p_form = ProfileUpdateForm(instance=request.user.profile)
+        except ProfileUpdateForm.DoesNotExist:
+            return render(request, '404.html')
 
     context = {
         'u_form': u_form,

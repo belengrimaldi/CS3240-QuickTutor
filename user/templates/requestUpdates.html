@@ -12,7 +12,7 @@
         
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <h1 class="display-4 ttl">Updates on your requests:</h1>
+                <h1 class="display-4 FOS">Updates on your requests:</h1>
             </div>
         </div>
         <div class="req">
@@ -70,11 +70,9 @@
                             <a href="{% url 'delete' fillout.id %}" class="btn btn-secondary" type = 'submit' value='Delete'>Delete</a>
                         </li>
 
-                        
+                        <hr/>
     
                         {% endfor %}
-
-                        <hr/>
                         
                         {% for fillout in awaiting %}
 
@@ -85,10 +83,13 @@
                             <p>Class: {{fillout.class_desc}}</p>
                             <a href="{% url 'delete' fillout.id %}" class="btn btn-secondary" type = 'submit' value='Delete'>Cancel Request</a>
                         </li>
+                        
+                        <hr/>
 
                         {% endfor %}
 
-                        
+                       
+
                     </div>
                 </div>
             </div>

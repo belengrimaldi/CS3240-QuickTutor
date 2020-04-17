@@ -7,17 +7,18 @@
 }
 
 .received {
-    border:1px solid black;
+    border:1px solid white;
     border-radius: 1rem;
-    background-color: #3d6c7f;
+    background-color: #bbbbbb;
     color: white;
     padding-top: 1rem;
     margin-left: 1rem;
 }
 
 .title {
-    margin-top: 2rem;
+    margin-top: 7rem;
     margin-bottom: 2rem;
+    font-size: 2rem;
 }
 
 .chatBox {
@@ -47,7 +48,7 @@
   
   /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #3d6c7f;
+    background: #618985;
     border-radius: 10px;
 }
 
@@ -57,3 +58,15 @@ textarea {
     border-radius: 5px;
 }
 
+.navbar {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: .1rem;
+    background: #618985!important;
+}
+
+.button_Color{
+    color: white;
+    background-color: #bbbbbb;
+}

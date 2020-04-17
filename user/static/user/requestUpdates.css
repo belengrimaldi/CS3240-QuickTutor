@@ -3,8 +3,15 @@
 }
 
 .ttl {
-    margin-top: 2rem;
+    margin-top: 6rem;
     margin-bottom: 1rem;
+}
+
+.FOS{
+    color: black!important;
+    margin-top: 6rem;
+    margin-bottom: 1rem;
+
 }
 
 .listItem {
@@ -36,6 +43,11 @@
     border-color: #3d6c7f;
 }
 
+.request{
+    margin-top: 1 rem;
+    margin-bottom: 1 rem;
+}
+
 .request:hover {
     color: black;
 }
@@ -62,4 +74,12 @@
 ::-webkit-scrollbar-thumb {
     background: #3d6c7f;
     border-radius: 10px;
+}
+
+.navbar {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: .1rem;
+    background: #618985!important;
 }

@@ -3,9 +3,11 @@
 }
 
 .ttl {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    color: black!important;
+    margin-top: 8rem;
+    margin-bottom: 2rem;
 }
+
 
 .listItem {
     background-color: #3D6C7F;
@@ -42,4 +44,12 @@
 
 small {
     font-size: medium;
+}
+
+.navbar {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: .1rem;
+    background: #618985!important;
 }

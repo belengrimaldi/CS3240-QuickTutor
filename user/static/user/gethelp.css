@@ -3,12 +3,13 @@
 }
 
 .ttl {
-    margin-top: 2rem;
+    color: black!important;
+    margin-top: 8rem;
     margin-bottom: 1rem;
 }
 
 .listItem {
-    background-color: #3D6C7F;
+    background-color: #BBBBBB;
     color: white;
     margin-bottom: .5rem;
     width: 50%;
@@ -27,13 +28,13 @@
 }
 
 .btn-primary {
-    background-color: #3d6c7f;
-    border-color: #3d6c7f;
+    background-color: #BBBBBB;
+    border-color: #BBBBBB;
 }
 
 .btn-primary:hover {
-    background-color: #3d6c7f;
-    border-color: #3d6c7f;
+    background-color: #BBBBBB;
+    border-color: #BBBBBB;
 }
 
 .request:hover {
@@ -48,6 +49,7 @@
 }
 .upt {
     margin-top: 1rem;
+    margin-bottom:1rem;
 }
 
 ::-webkit-scrollbar {
@@ -64,4 +66,24 @@
 ::-webkit-scrollbar-thumb {
     background: #3d6c7f;
     border-radius: 10px;
+}
+
+.navbar {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: .1rem;
+    background: #618985!important;
+}
+
+.button_Color{
+    color: white;
+    background-color: #bbbbbb;
+}
+
+
+.button_Color:hover{
+
+    color: white;
+    background-color: #2d2d2f;
 }

@@ -3,7 +3,7 @@
 }
 
 .title {
-    margin-top: 2rem;
+    margin-top: 6rem;
     margin-bottom: 1rem;
 }
 
@@ -16,7 +16,7 @@ textarea {
 }
 
 .listItem {
-    background-color: #3D6C7F;
+    background-color:	#BBBBBB;
     color: white;
     margin-bottom: 1rem;
     width: 50%;
@@ -27,7 +27,7 @@ textarea {
 }
 
 .list-group-item:hover {
-    color: white;
+    color: black;
 }
 
 .pens {
@@ -35,4 +35,18 @@ textarea {
     height:60%;
     overflow-y:auto;
     overflow-x:hidden;
+}
+
+h6{
+    color:black;
+    font-size: 2.5rem;
+    
+}
+
+.navbar {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: .1rem;
+    background: #618985!important;
 }

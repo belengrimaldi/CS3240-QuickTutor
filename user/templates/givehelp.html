@@ -8,29 +8,32 @@
 </head>
 
 <body>
+
     <div class="row justify-content-center">
-        <h1 class="ttl">Tutee Requests</h1>
+        <h1 class="display-4 ttl">Tutee Requests</h1>
     </div>
     {% ifequal tut.active_tutor False %}
-        <div class="row justify-content-center">
-            <small>Set yourself as an active tutor first!</small>
+
+    <div class="row justify-content-center">
+        <small>Set yourself as an active tutor first!</small>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row flex-row justify-content-center">
+            <fieldset class="form-group col-2 checkbox">
+                {{ at_form|crispy }}
+            </fieldset>
         </div>
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="row flex-row justify-content-center">
-                    <fieldset class="form-group col-2 checkbox">
-                        {{ at_form|crispy }}
-                    </fieldset>
-                </div>
-                <div class="row flex-row justify-content-center">
-                    <div class="form-group col-2">
-                        <button class="btn btn-primary" type="submit">Go live!</button>
-                    </div>
-                </div>
-            </form>
+        <div class="row flex-row justify-content-center">
+            <div class="form-group col-2">
+                <button class="btn btn-primary" type="submit">Go live!</button>
+            </div>
         </div>
+    </form>
+    </div>
 
     {% else %}
+
 
     <div class="row">
         {% for tutor in received %}
@@ -46,16 +49,19 @@
                         {% endifequal %}
                         <p>Class {{tutor.sender.first_name}} needs help with: {{tutor.class_desc}}</p>
                         <p>Description: {{tutor.help_desc}}</p>
-                        <p>Locations where {{tutor.sender.first_name}} would be okay meeting: {{tutor.meeting_places}}</p>
+                        <p>Locations where {{tutor.sender.first_name}} would be okay meeting: {{tutor.meeting_places}}
+                        </p>
                         <p>Length of session: {{tutor.get_time_slot_display}}</p>
                     </p>
                     <form method="post" nonvalidate>
                         <div class="row">
                             <div class="col-sm-6">
-                                <a href="{% url 'accepttutee' tutor.id %}" class="btn btn-outline-secondary btn-lg">Accept</a>
+                                <a href="{% url 'accepttutee' tutor.id %}"
+                                    class="btn btn-outline-secondary btn-lg">Accept</a>
                             </div>
                             <div class="col-sm-6">
-                                <a href="{% url 'rejecttutee' tutor.id %}" class="btn btn-outline-secondary btn-lg">Remove</a>
+                                <a href="{% url 'rejecttutee' tutor.id %}"
+                                    class="btn btn-outline-secondary btn-lg">Remove</a>
                             </div>
                         </div>
                     </form>
@@ -83,10 +89,10 @@
             </div>
         </div>
 
-
         {% endfor %}
     </div>
 
+    
     {% endifequal %}
 
 

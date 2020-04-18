@@ -23,7 +23,6 @@
                         {% for fillout in accepted %}
 
                         <li class="list-group-item request">
-                            <p>Accepted Request: </p>
                             <p class="card-text">{{ fillout.receiver.first_name}} {{ fillout.receiver.last_name }} has
                                 accepted your request</p>
                             <p>Class: {{fillout.class_desc}}</p>
@@ -31,7 +30,7 @@
                             {% csrf_token %}
                             
                             {% if fillout.time_slot == "1" %}
-                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button stp_button"
                             data-key="{{ key }}"
                             data-description="Tutor Payment: 5-15 minutes"
                             data-amount="500"
@@ -40,7 +39,7 @@
                             {% endif %}
 
                             {% if fillout.time_slot == "2" %}
-                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button stp_button"
                             data-key="{{ key }}"
                             data-description="Tutor Payment: 15-30 minutes"
                             data-amount="1000"
@@ -49,7 +48,7 @@
                             {% endif %}
 
                             {% if fillout.time_slot == "3" %}
-                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button stp_button"
                             data-key="{{ key }}"
                             data-description="Tutor Payment: 30 minutes - 1 hour"
                             data-amount="2000"
@@ -58,7 +57,7 @@
                             {% endif %}
 
                             {% if fillout.time_slot == "4" %}
-                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button stp_button"
                             data-key="{{ key }}"
                             data-description="Tutor Payment - More than 1 hour"
                             data-amount="3000"
@@ -77,7 +76,6 @@
                         {% for fillout in awaiting %}
 
                         <li class="list-group-item request">
-                            <p>Awaited Request: </p>
                             <p class="card-text">{{ fillout.receiver.first_name}} {{ fillout.receiver.last_name }} has
                                 not responded to your request</p>
                             <p>Class: {{fillout.class_desc}}</p>

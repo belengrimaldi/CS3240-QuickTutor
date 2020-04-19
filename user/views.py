@@ -168,9 +168,7 @@ def CorLog(request, pal_username):
         pen_pal = User.objects.get(username=pal_username)
     except User.DoesNotExist:
         return render(request, '404.html')
-    
     coris = []
-
     # Make send box at bottom of screen
     if request.method == "POST":
 

@@ -11,6 +11,7 @@ from .forms import UserForm, ProfileUpdateForm, FillOutSheetForm, MessageForm, C
 from django.contrib import messages
 from django.conf import settings
 import stripe
+from django.core.paginator import Paginator
 
 # Create your views here
 
@@ -155,12 +156,15 @@ def Messaging(request):
         if msg.receiver not in pen_pals:
             pen_pals.append(msg.receiver)
 
-    context = {
-        'pen_pals': pen_pals,
-    }
+    paginator = Paginator(pen_pals, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
+#    context = {
+ #       'pen_pals': pen_pals,
+ #   }
 
-    return render(request, 'send.html', context)
+    return render(request, 'send.html', {'page_obj': page_obj})
 
 @login_required
 def CorLog(request, pal_username):

@@ -53,3 +53,7 @@ small {
     letter-spacing: .1rem;
     background: #618985!important;
 }
+
+.notify {
+    text-align: center;
+}

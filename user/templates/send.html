@@ -30,20 +30,29 @@
 <footer>
 	<div class="container text-center">
 		{% if page_obj.has_previous %}
-			<a href="?page=1" >&laquo; first</a>
-			<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+			<a href="?page=1" >&laquo; first</a> | 
+			<a href="?page={{ page_obj.previous_page_number }}">prev</a>
+		{% else %}
+		<a disabled>&laquo; first</a> | 
+		<a disabled>prev</a>
 		{% endif %}
 
-		Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+		| {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} |
 
 		{% if page_obj.has_next %}
-			<a href="?page={{ page_obj.next_page_number }}">next</a>
+			<a href="?page={{ page_obj.next_page_number }}">next</a> | 
 			<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+		{% else %}
+			<a disabled>next</a> |
+			<a disabled>last &raquo;</a>
 		{% endif %}
 	</div>
+	
 </footer>
 
 {% endblock %}
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+

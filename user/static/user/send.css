@@ -43,3 +43,11 @@ h6{
     letter-spacing: .1rem;
     background: #618985!important;
 }
+
+a {
+    color: #618985;
+}
+
+a:hover {
+    color: #618985;
+}

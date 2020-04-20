@@ -4,6 +4,15 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'user\homeMain.css' %}">
+    {% if messages %}
+    <ul class="bg-success ">
+        <div class="text-center">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </div>
+    </ul>
+    {% endif %}
 </head>
 
 

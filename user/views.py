@@ -22,20 +22,6 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 def Home(request):
     available_tutors = Profile.objects.filter(active_tutor=True)
     template = loader.get_template('home.html')
-
-    count = 0
-    msgs = Message.objects.filter(receiver=request.user)
-    for msg in msgs:
-        if (msg.read == False):
-            count += 1
-
-    if (count > 1):
-        messages.info(request, f'You have ' + str(count) + ' new messages')
-
-    if (count == 1):
-        messages.info(request, f'You have ' + str(count) + ' new message')
-
-
     return render(request, 'home.html')
 
 
@@ -155,6 +141,8 @@ def charge(request):
             source=request.POST['stripeToken']
         )
         return render(request, 'charge.html')
+    
+    return render(request, 'charge.html')
 
 
 @login_required
@@ -173,6 +161,10 @@ def Messaging(request):
     paginator = Paginator(pen_pals, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+
+#    context = {
+ #       'pen_pals': pen_pals,
+ #   }
 
     return render(request, 'send.html', {'page_obj': page_obj})
 
@@ -207,10 +199,6 @@ def CorLog(request, pal_username):
         coris.append(i)
     
     coris.sort(key=(lambda x: x.created_at), reverse=True)
-
-    for message in allMsg:
-        message.read = True
-        message.save()
 
     context = {
         'coris': coris,

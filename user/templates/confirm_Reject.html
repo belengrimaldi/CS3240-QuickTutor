@@ -17,7 +17,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8 txt">
                 <p>If this was a mistake, you can message {{sheet.sender.first_name}} by clicking the link below.</p>
-                <a href="{% url 'log' sheet.sender.username %}" class="btn btn-secondary" role="button">Message Tutor </a>
+                <a href="{% url 'log' sheet.sender.username %}" class="btn btn-secondary" role="button">Message {{sheet.sender.first_name}} </a>
             </div>
         </div>
         {% endblock %}

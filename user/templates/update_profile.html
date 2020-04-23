@@ -9,13 +9,16 @@
     </head>
     <br>
     {% if messages %}
-    <ul class="bg-success">
-        <div class="text-center">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
+    <div class="row justify-content-center">
+        <div class="col-md-6 colUpdated">
+            <div class="text-center">
+                {% for message in messages %}
+                <p{% if message.tags %} class="{{ message.tags }} pUpdated"{% endif %}>{{ message }}</p>
+                {% endfor %}
+            </div>
         </div>
-    </ul>
+    </div>
+
     {% endif %}
 
     <form method="POST" enctype="multipart/form-data">

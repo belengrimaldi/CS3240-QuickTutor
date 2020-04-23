@@ -15,6 +15,10 @@ from django.core.paginator import Paginator
 
 # Create your views here
 
+# https://www.youtube.com/watch?v=CQ90L5jfldw&list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p&index=9: tutorial used to create Profile update
+# https://medium.com/@jainsahil1997/simple-google-authentication-in-django-58101a34736b: tutorial to create login
+# https://testdriven.io/blog/django-stripe-tutorial/: tutorial for setting up stripe
+
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 

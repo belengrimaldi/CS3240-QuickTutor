@@ -5,13 +5,13 @@
 {% block content %}
 
 <head>
-    <title>Request Tutor</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'user\Filloutsheet.css' %}">
 </head>
 
 <body>
 
     <div class="text-center">
-        <h1>Please fill out the following form</h1>
+        <h1 class = "display-4 FOS">Please fill out the following form</h1>
         <p>Help your tutor understand your needs by giving them some information.</p>
     </div>
     <form method="post" nonvalidate>
@@ -36,7 +36,7 @@
         </div>
 
         <div class="text-center">
-            <button type="submit" href = "confirm.html" class="btn btn-secondary btn-sm active">Submit</button>
+            <button type="submit" href = "confirm.html" class="btn button_Color" role="button">Submit</button>
         </div>
     </form>
 

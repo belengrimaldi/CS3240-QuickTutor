@@ -8,85 +8,103 @@
 </head>
 
 <body>
+
     <div class="row justify-content-center">
-        <h1 class="ttl">Tutee Requests</h1>
+        <h1 class="display-4 ttl">Tutee Requests</h1>
     </div>
     {% ifequal tut.active_tutor False %}
-        <div class="row justify-content-center">
-            <small>Set yourself as an active tutor first!</small>
+
+    <div class="row justify-content-center">
+        <small>Set yourself as an active tutor first!</small>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row flex-row justify-content-center">
+            <fieldset class="form-group col-2 checkbox">
+                {{ at_form|crispy }}
+            </fieldset>
         </div>
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="row flex-row justify-content-center">
-                    <fieldset class="form-group col-2 checkbox">
-                        {{ at_form|crispy }}
-                    </fieldset>
-                </div>
-                <div class="row flex-row justify-content-center">
-                    <div class="form-group col-2">
-                        <button class="btn btn-primary" type="submit">Go live!</button>
-                    </div>
-                </div>
-            </form>
+        <div class="row flex-row justify-content-center">
+            <div class="form-group col-2">
+                <button class="btn button_Color" type="submit">Go live!</button>
+            </div>
         </div>
+    </form>
+    </div>
 
     {% else %}
 
-    <div class="row">
-        {% for tutor in received %}
-        <div class="col-sm-4">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">{{tutor.sender.first_name}} {{tutor.sender.last_name}}</h5>
-                    <p class="card-text">
-                        {% ifequal tutor.sender.year None %}
-                        <p>Year: N/A</p>
-                        {% else %}
-                        <p>Year: {{tutor.sender.year}}</p>
-                        {% endifequal %}
-                        <p>Class {{tutor.sender.first_name}} needs help with: {{tutor.class_desc}}</p>
-                        <p>Description: {{tutor.help_desc}}</p>
-                        <p>Locations where {{tutor.sender.first_name}} would be okay meeting: {{tutor.meeting_places}}</p>
-                        <p>Length of session: {{tutor.get_time_slot_display}}</p>
-                    </p>
-                    <form method="post" nonvalidate>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <a href="{% url 'accepttutee' tutor.id %}" class="btn btn-outline-secondary btn-lg">Accept</a>
+
+
+        <div class="row justify-content-center">
+            {% for tutor in received %}
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{tutor.sender.first_name}} {{tutor.sender.last_name}}</h5>
+                        <p class="card-text">
+                            {% ifequal tutor.sender.year None %}
+                            <p>Year: N/A</p>
+                            {% else %}
+                            <p>Year: {{tutor.sender.year}}</p>
+                            {% endifequal %}
+                            <p>Class {{tutor.sender.first_name}} needs help with: {{tutor.class_desc}}</p>
+                            <p>Description: {{tutor.help_desc}}</p>
+                            <p>Locations where {{tutor.sender.first_name}} would be okay meeting: {{tutor.meeting_places}}
+                            </p>
+                            <p>Length of session: {{tutor.get_time_slot_display}}</p>
+                        </p>
+                        <form method="post" nonvalidate>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <a href="{% url 'accepttutee' tutor.id %}"
+                                        class="btn btn-outline-secondary btn-lg">Accept</a>
+                                </div>
+                                <div class="col-sm-6">
+                                    <a href="{% url 'rejecttutee' tutor.id %}"
+                                        class="btn btn-outline-secondary btn-lg">Remove</a>
+                                </div>
                             </div>
-                            <div class="col-sm-6">
-                                <a href="{% url 'rejecttutee' tutor.id %}" class="btn btn-outline-secondary btn-lg">Remove</a>
-                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="accept" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Thanks!</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="accept" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title">Thanks!</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        We will send a message to your tutor.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <div class="modal-body">
+                            We will send a message to your tutor.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            {% empty %}
+
+                <h3 class="notify">You have no requests right now</h3>
+                <p>Refresh the page to check to see if you have new requests. Make sure you've filled out
+                    what classes you have taken in your profile so that tutees can find you.
+                </p>
+
+            {% endfor %}
 
 
-        {% endfor %}
+        
+
     </div>
 
+    
     {% endifequal %}
 
 

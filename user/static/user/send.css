@@ -3,7 +3,7 @@
 }
 
 .title {
-    margin-top: 2rem;
+    margin-top: 6rem;
     margin-bottom: 1rem;
 }
 
@@ -16,10 +16,18 @@ textarea {
 }
 
 .listItem {
-    background-color: #3D6C7F;
+    background-color:	#BBBBBB;
     color: white;
     margin-bottom: 1rem;
     width: 50%;
+}
+
+.listItemUnread {
+    background-color: #2F4F4F;
+    color: white;
+    margin-bottom: 1rem;
+    width: 50%;
+    font-weight: bold;
 }
 
 .list-group-item:last-child {
@@ -30,9 +38,36 @@ textarea {
     color: white;
 }
 
-.pens {
-    margin-bottom: .5rem;
-    height:60%;
-    overflow-y:auto;
-    overflow-x:hidden;
+h6{
+    color:black;
+    font-size: 2.5rem;
+    
+}
+
+.navbar {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: .1rem;
+    background: #618985!important;
+}
+
+a {
+    color: #618985;
+}
+
+a:hover {
+    color: #618985;
+}
+
+.par {
+    margin-bottom: 0;
+}
+
+.sml {
+    margin-bottom: 1rem;
+}
+
+.list-group {
+    margin-top: 1rem;
 }

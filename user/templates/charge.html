@@ -4,17 +4,21 @@
 {% block content %}
 
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'user\gethelp.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'user\confirm.css' %}">
 </head>
 
 <body>
 
     <div class="container">
-
-        <div class="jumbotron">
-            <h1 class="display-3">Thank you for using Quick Tutor!</h1>
-            <p class="lead">Be sure to message your tutor to confirm the details of your appointment</p>
+        <div class="row justify-content-center title">
+            <h1 class ="display-4 h1Confirm">Your payment has been sent!</h1>
         </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8 txt">
+                <p>Thank you for using QuickTutor</p>
+            </div>
+        </div>
+        {% endblock %}
     </div>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -29,4 +33,4 @@
 
 </body>
 
-{% endblock %}
+

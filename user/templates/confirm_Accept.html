@@ -12,7 +12,7 @@
 <body>
     <div class="container">
         <div class="row justify-content-center title">
-            <h1>You have accepted the appointment!</h1>
+            <h1 class ="h1Confirm">You have accepted the appointment!</h1>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-8 txt">
@@ -22,7 +22,7 @@
                 </p>
                 <p>If you would like to send a message to {{sheet.sender.first_name}}, you can click on the button below. 
                 </p>
-                <a href="{% url 'log' sheet.sender.username %}" class="btn btn-secondary" role="button">Message Tutor </a>
+                <a href="{% url 'log' sheet.sender.username %}" class="btn btn-secondary" role="button">Message {{sheet.sender.first_name}}</a>
             </div>
         </div>
         {% endblock %}

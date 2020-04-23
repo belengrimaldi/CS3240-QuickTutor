@@ -3,8 +3,15 @@
 }
 
 .ttl {
-    margin-top: 2rem;
+    margin-top: 6rem;
     margin-bottom: 1rem;
+}
+
+.FOS{
+    color: black!important;
+    margin-top: 6rem;
+    margin-bottom: 1rem;
+
 }
 
 .listItem {
@@ -36,30 +43,42 @@
     border-color: #3d6c7f;
 }
 
+.request{
+    margin-top: 1 rem;
+    margin-bottom: 1 rem;
+}
+
 .request:hover {
     color: black;
 }
 
 .req {
-    border: 1px black solid;
-    height:60%;
-    overflow-y:auto;
-    overflow-x:hidden;
     margin-bottom: 1rem;
 }
 
-::-webkit-scrollbar {
-    width: 5px;
-  }
-  
-  /* Track */
-::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey;
-    border-radius: 10px;
+.navbar {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: .1rem;
+    background: #618985!important;
 }
-  
-  /* Handle */
-::-webkit-scrollbar-thumb {
-    background: #3d6c7f;
-    border-radius: 10px;
+
+
+.stripe-button-el {
+    color: white;
+    background-color: #bbbbbb;
+}
+
+
+.stripe-button-el:hover{
+
+    color: white;
+    background-color: #2d2d2f;
+}
+
+h4{
+    color: black;
+    font-style: normal;
+    font-weight: normal;
 }

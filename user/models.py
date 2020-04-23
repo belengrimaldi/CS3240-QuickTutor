@@ -40,6 +40,7 @@ class Message(models.Model):
     receiver = models.ForeignKey(User, related_name="receiver", on_delete=models.CASCADE)
     msg_content = models.TextField(verbose_name='message content', max_length=400, blank=True)
     created_at = models.TimeField(default=timezone.now)
+    read = models.BooleanField(default=False)
 
 
 class Fill_Out_Sheet(models.Model):

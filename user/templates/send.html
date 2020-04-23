@@ -10,14 +10,23 @@
 	<div class="container">
 		<div class="text-center">
 			<h6 class="display-4" style="margin-top: 8rem; margin-bottom: 1rem;">Inbox</h6>
-			<p>Click to see messages between you and another user</p>
+			<p class="par">Click to see messages between you and another user</p>
+			<small class="sml">Conversations that have unread messages appear green and bold</small>
 			{% if page_obj %}
 				{% for pal in page_obj %}
-					<div class="list-group">
-						<div class="row justify-content-center">
-							<a href="{% url 'log' pal.username %}" class="list-group-item listItem" >{{pal.first_name}} {{pal.last_name}}</a>
+					{% if pal in pen_pals_unread %}
+						<div class="list-group">
+							<div class="row justify-content-center">
+								<a href="{% url 'log' pal.username %}" class="list-group-item listItemUnread">{{pal.first_name}} {{pal.last_name}}</a>
+							</div>
 						</div>
-					</div>
+					{% else %}
+						<div class="list-group">
+							<div class="row justify-content-center">
+								<a href="{% url 'log' pal.username %}" class="list-group-item listItem" >{{pal.first_name}} {{pal.last_name}}</a>
+							</div>
+						</div>
+					{% endif %}
 				{% endfor %}
 			{% else %}
 				<p>No messages yet</p>

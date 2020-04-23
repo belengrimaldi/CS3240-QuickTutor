@@ -33,16 +33,19 @@ def Home(request):
         if (msg.read == False):
             count += 1
 
-    if (count > 1):
-        messages.info(request, f'You have ' + str(count) + ' new messages')
-
-    if (count == 1):
-        messages.info(request, f'You have ' + str(count) + ' new message')
-    return render(request, 'home.html')
+    context = {
+        "count":count,
+    }
+    return render(request, 'home.html', context)
 
 
 @login_required
 def filloutform(request, tutor_username):
+    count = 0
+    msgs = Message.objects.filter(receiver=request.user)
+    for msg in msgs:
+        if (msg.read == False):
+            count += 1
     try:
         receiver_ob = User.objects.get(username=tutor_username)
     except User.DoesNotExist:
@@ -73,7 +76,7 @@ def filloutform(request, tutor_username):
     else:
         form = FillOutSheetForm()
 
-    context = {'form': form, 'receiver_ob': receiver_ob, }
+    context = {'form': form, 'receiver_ob': receiver_ob, "count": count,}
     return render(request, 'filloutsheet.html', context)
 
 
@@ -92,6 +95,12 @@ def DeleteSheet(request, form_id):
 
 @login_required
 def RequestsUpdate(request):
+    count = 0
+    msgs = Message.objects.filter(receiver=request.user)
+    for msg in msgs:
+        if (msg.read == False):
+            count += 1
+
     key = settings.STRIPE_PUBLISHABLE_KEY
     awaiting = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = True)
     accepted = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = False).filter(has_tutor_accepted=True)
@@ -99,6 +108,7 @@ def RequestsUpdate(request):
     template = loader.get_template('requestUpdates.html')
 
     context = {
+        'count': count,
         'awaiting':awaiting,
         'accepted':accepted,
         'rejected':rejected,
@@ -109,18 +119,48 @@ def RequestsUpdate(request):
 
 @login_required
 def confirm(request):
-    return render(request, 'confirm.html')
+    count = 0
+    msgs = Message.objects.filter(receiver=request.user)
+    for msg in msgs:
+        if (msg.read == False):
+            count += 1
+    context = {
+        "count": count,
+    }
+    return render(request, 'confirm.html', context)
 
 @login_required
 def confirm_Accept(request):
-    return render(request, '/confirm_Accept')
+    count = 0
+    msgs = Message.objects.filter(receiver=request.user)
+    for msg in msgs:
+        if (msg.read == False):
+            count += 1
+    context = {
+        "count": count,
+    }
+    return render(request, '/confirm_Accept', context)
 
 @login_required
 def confirm_Reject(request):
-    return render(request, '/confirm_Reject')
+    count = 0
+    msgs = Message.objects.filter(receiver=request.user)
+    for msg in msgs:
+        if (msg.read == False):
+            count += 1
+    context = {
+        "count": count,
+    }
+    return render(request, '/confirm_Reject', context)
 
 @login_required
 def GetHelp(request):
+    count = 0
+    msgs = Message.objects.filter(receiver=request.user)
+    for msg in msgs:
+        if (msg.read == False):
+            count += 1
+
     key = settings.STRIPE_PUBLISHABLE_KEY
     awaiting = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = True)
     accepted = Fill_Out_Sheet.objects.filter(sender = request.user).filter(no_response = False).filter(has_tutor_accepted=True)
@@ -143,12 +183,23 @@ def GetHelp(request):
         'accepted':accepted,
         'rejected':rejected,
         'key':key,
+        'count':count,
     }
 
     return render(request, 'gethelp.html', context)
 
 @login_required
 def charge(request):
+    count = 0
+    msgs = Message.objects.filter(receiver=request.user)
+    for msg in msgs:
+        if (msg.read == False):
+            count += 1
+    
+    context = {
+        "count": count,
+    }
+
     if request.method == 'POST':
         charge = stripe.Charge.create(
             amount=2000,
@@ -156,17 +207,31 @@ def charge(request):
             description='A Django Charge',
             source=request.POST['stripeToken']
         )
-        return render(request, 'charge.html')
+        return render(request, 'charge.html', context)
     
-    return render(request, 'charge.html')
+    return render(request, 'charge.html', context)
 
 
 @login_required
 def Messaging(request):
+
+    count = 0
+    msgs = Message.objects.filter(receiver=request.user)
+    for msg in msgs:
+        if (msg.read == False):
+            count += 1
+
 #   Makes the list of people who you've messaged or who have messaged you
     received = Message.objects.filter(receiver=request.user)
     sent = Message.objects.filter(sender=request.user)
     pen_pals = []
+    pen_pals_unread = []
+
+    for msg in received:
+        if not msg.read:
+            if msg.sender not in pen_pals_unread:
+                pen_pals_unread.append(msg.sender)
+    
     for msg in received:
         if msg.sender not in pen_pals:
             pen_pals.append(msg.sender)
@@ -178,14 +243,17 @@ def Messaging(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-#    context = {
- #       'pen_pals': pen_pals,
- #   }
-
-    return render(request, 'send.html', {'page_obj': page_obj})
+    context = {
+        "page_obj":page_obj,
+        "count":count,
+        "pen_pals_unread":pen_pals_unread,
+    }
+    return render(request, 'send.html', context)
 
 @login_required
 def CorLog(request, pal_username):
+    
+
     try:
         pen_pal = User.objects.get(username=pal_username)
     except User.DoesNotExist:
@@ -216,23 +284,47 @@ def CorLog(request, pal_username):
     
     coris.sort(key=(lambda x: x.created_at), reverse=True)
 
-    for message in allMsg:
+    received_messages = Message.objects.filter(receiver = request.user, sender = pen_pal)
+
+    for message in received_messages:
         message.read = True
         message.save()
+
+    count = 0
+    msgs = Message.objects.filter(receiver=request.user)
+    for msg in msgs:
+        if (msg.read == False):
+            count += 1
 
     context = {
         'coris': coris,
         'pal' : pen_pal,
         'form' : form,
+        'count':count,
     }
     return render(request, 'log.html', context)
 
 @login_required
 def SeeProfile(request):
-    return render(request, 'profile.html')
+    count = 0
+    msgs = Message.objects.filter(receiver=request.user)
+    for msg in msgs:
+        if (msg.read == False):
+            count += 1
+    
+    context = {
+        "count":count,
+    }
+    return render(request, 'profile.html', context)
 
 @login_required
 def GiveHelp(request):
+    count = 0
+    msgs = Message.objects.filter(receiver=request.user)
+    for msg in msgs:
+        if (msg.read == False):
+            count += 1
+    
     if request.method == 'POST':
         try:
             at_form = ActiveTutorForm(request.POST, request.FILES, instance=request.user.profile)
@@ -251,11 +343,17 @@ def GiveHelp(request):
     tut = request.user.profile
 
     received = Fill_Out_Sheet.objects.filter(receiver=request.user).filter(no_response = True)
-    context = {'received':received,'at_form': at_form, 'tut':tut}
+    context = {'received':received,'at_form': at_form, 'tut':tut, "count":count,}
     return render(request, 'givehelp.html', context)
 
 @login_required
 def AcceptTutee(request, form_id):
+    count = 0
+    msgs = Message.objects.filter(receiver=request.user)
+    for msg in msgs:
+        if (msg.read == False):
+            count += 1
+
     try:
         sheet = Fill_Out_Sheet.objects.get(pk = form_id)
     except Fill_Out_Sheet.DoesNotExist:
@@ -264,21 +362,32 @@ def AcceptTutee(request, form_id):
     sheet.has_tutor_accepted = True
     sheet.has_tutor_rejected = False
     sheet.save()
-    context = {'sheet':sheet,}
+    context = {'sheet':sheet,"count":count,}
     return render(request, 'confirm_Accept.html', context)
 
 @login_required
 def RejectTutee(request, form_id):
+    count = 0
+    msgs = Message.objects.filter(receiver=request.user)
+    for msg in msgs:
+        if (msg.read == False):
+            count += 1
     try:
         sheet = Fill_Out_Sheet.objects.get(pk = form_id)
     except Fill_Out_Sheet.DoesNotExist:
         return render(request, '404.html')
     sheet.delete()
-    context = {'sheet':sheet,}
+    context = {'sheet':sheet,"count":count,}
     return render(request, 'confirm_Reject.html', context)
 
 @login_required
 def Prof(request):
+    count = 0
+    msgs = Message.objects.filter(receiver=request.user)
+    for msg in msgs:
+        if (msg.read == False):
+            count += 1
+    
     if request.method == 'POST':
         try:
             u_form = UserForm(request.POST, instance=request.user)
@@ -308,7 +417,8 @@ def Prof(request):
 
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form, 
+        "count":count,
     }
     return render(request, 'update_profile.html', context)
 

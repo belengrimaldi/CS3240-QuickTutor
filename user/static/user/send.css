@@ -22,6 +22,14 @@ textarea {
     width: 50%;
 }
 
+.listItemUnread {
+    background-color: #2F4F4F;
+    color: white;
+    margin-bottom: 1rem;
+    width: 50%;
+    font-weight: bold;
+}
+
 .list-group-item:last-child {
     margin-bottom: 1rem;
 }
@@ -50,4 +58,16 @@ a {
 
 a:hover {
     color: #618985;
+}
+
+.par {
+    margin-bottom: 0;
+}
+
+.sml {
+    margin-bottom: 1rem;
+}
+
+.list-group {
+    margin-top: 1rem;
 }

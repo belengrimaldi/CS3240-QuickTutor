@@ -22,6 +22,18 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 def Home(request):
     available_tutors = Profile.objects.filter(active_tutor=True)
     template = loader.get_template('home.html')
+
+    count = 0
+    msgs = Message.objects.filter(receiver=request.user)
+    for msg in msgs:
+        if (msg.read == False):
+            count += 1
+
+    if (count > 1):
+        messages.info(request, f'You have ' + str(count) + ' new messages')
+
+    if (count == 1):
+        messages.info(request, f'You have ' + str(count) + ' new message')
     return render(request, 'home.html')
 
 

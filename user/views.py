@@ -212,6 +212,10 @@ def CorLog(request, pal_username):
     
     coris.sort(key=(lambda x: x.created_at), reverse=True)
 
+    for message in allMsg:
+        message.read = True
+        message.save()
+
     context = {
         'coris': coris,
         'pal' : pen_pal,
